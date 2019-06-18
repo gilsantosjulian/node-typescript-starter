@@ -6,15 +6,15 @@
     "noImplicitAny": true, // Raise error on expressions and declarations with an implied 'any' type.
     "moduleResolution": "node", // Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6).
     "sourceMap": true, // Generates corresponding '.map' file.
-    "outDir": "dist", // Redirect output structure to the directory.
+    "outDir": "./dist/", // Redirect output structure to the directory.
     "baseUrl": ".", // Base directory to resolve non-absolute module names.
     "paths": {
       // A series of entries which re-map imports to lookup locations relative to the 'baseUrl'.
       "config/*": ["config/*"],
-      "controllers/*": ["api/controllers/*"],
+      "controllers/*": ["./api/controllers/*"],
       "helpers/*": ["api/helpers/*"],
-      "modules/*": ["api/modules/*"],
-      "routes/*": ["api/routes/*"],
+      "modules/*": ["./api/db/*"],
+      "routes/*": ["./api/routes/*"],
       "services/*": ["api/services/*"],
       "types/*": ["api/types/*"]
     },

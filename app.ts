@@ -1,8 +1,11 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import config from "./config";
+const routes = require("./api/routes");
 
 async function startServer() {
   const app = express();
+
+  app.use("/users", routes.usersRoute);
 
   app.listen(config.port, err => {
     if (err) {
@@ -16,7 +19,7 @@ async function startServer() {
     `);
   });
 
-  app.get("/", (req, res) => res.send("Hello World!"));
+  app.get("/", (req: Request, res: Response) => res.send("Hello World!"));
 }
 
 startServer();
