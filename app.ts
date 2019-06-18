@@ -1,6 +1,22 @@
 import express from "express";
-const app = express();
+import config from "./config";
 
-app.get("/", (req, res) => res.send("Hello World!"));
+async function startServer() {
+  const app = express();
 
-app.listen(3000, () => console.log("Example app listening on port 3000!"));
+  app.listen(config.port, err => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(`
+      ################################################
+      🛡️  Server listening on port: ${config.port} 🛡️ 
+      ################################################
+    `);
+  });
+
+  app.get("/", (req, res) => res.send("Hello World!"));
+}
+
+startServer();
