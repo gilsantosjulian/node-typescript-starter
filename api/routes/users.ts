@@ -7,7 +7,7 @@ const router: Router = express.Router();
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response: Handler = await controllers.usersController.getMany(
+    const response: object = await controllers.usersController.getMany(
       req,
       res
     );
