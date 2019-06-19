@@ -1,0 +1,51 @@
+{
+  "name": "shd-api",
+  "version": "1.0.0",
+  "description": "TypeScript microservices for SHD system",
+  "main": "app.ts",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "tsc",
+    "build:dev": "npm run clean && webpack --config webpack.config.js",
+    "start": "nodemon dist/app.js",
+    "start:dev": "nodemon app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/minkainc/shd-api/src"
+  },
+  "keywords": [
+    "shd",
+    "api",
+    "invocies",
+    "vendors"
+  ],
+  "author": "Julián Andrés Gil Santos",
+  "contributors": [
+    {
+      "name": "Damian Fandiño",
+      "email": "damian@minka.io"
+    },
+    {
+      "name": "Luis Alfonso",
+      "email": "luise@minka.io"
+    }
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "ts-loader": "^6.0.3",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4"
+  }
+}
