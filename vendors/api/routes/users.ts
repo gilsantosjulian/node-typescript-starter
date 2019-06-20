@@ -1,16 +1,12 @@
 "use strict";
 import express, { Router, Request, Response, NextFunction } from "express";
-import { Handler } from "../types/handler";
-const controllers = require("../controllers");
+import controllers from "../controllers";
 
 const router: Router = express.Router();
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response: object = await controllers.usersController.getMany(
-      req,
-      res
-    );
+    const response: object = await controllers.usersController.getMany(req);
 
     res.status(200).send({
       code: 200,
@@ -23,4 +19,4 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-module.exports = router;
+export = router;

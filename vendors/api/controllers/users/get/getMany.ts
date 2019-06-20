@@ -1,5 +1,5 @@
 "use strict";
-const userModel = require("../../../db/datastore/users/get/getMany");
+import userModel from "../../../db/datastore/users/get/getMany";
 
 export const getMany = async (query: object): Promise<any> => {
   try {
