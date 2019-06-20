@@ -17,10 +17,12 @@ const usersMock: Array<object> = [
 ];
 
 const getMany = async (filters: object): Promise<any> => {
+  console.log("console.log()")
   if (filters) {
     return usersMock;
   }
   new Error("Filter object required");
+
 };
 
 export = {

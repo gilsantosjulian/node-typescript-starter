@@ -1,6 +1,9 @@
 #Rules
 This document describes the rules used on tsconfig.json
 
-* **"no-console": false** Ignore console.log() alert
-* **"object-literal-sort-keys": false** Keys doesn't have to be ordered in JSON documents
-* **"max-line-length": [true, 90]** Max length of 90
+* **"no-console"** Warning when console.log() is used
+* **"object-literal-sort-keys"** Keys doesn't have to be ordered in JSON documents
+* **"max-line-length"** Max length of 90
+* **"array-type"** Shows warning if array os declared as Array<T>
+* **"no-unused-expression"** Expressions must be declared and then used
+* **"ordered-imports"** Imports has to be ordered
