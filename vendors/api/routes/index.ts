@@ -1,7 +1,6 @@
 "use strict";
+import usersRoute from "./users";
 
-const usersRoute = require("./users.ts");
-
-module.exports = {
+export = {
   usersRoute
 };
