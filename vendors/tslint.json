@@ -11,6 +11,8 @@
         "array-type": {"options":["array"],"severity":"warning"},
         "max-line-length": {"options":[90],"severity":"warning"},
         "no-unused-expression": {"options":[true],"severity":"warning"},
-        "ordered-imports": {"options":[true],"severity":"warning"}
+        "ordered-imports": {"options":[true],"severity":"warning"},
+        "space-before-function-paren": {"options":[true],"severity":"warning"},
+        "comment-format": {"options":[true, "check-space"],"severity":"warning"}
     }
 }

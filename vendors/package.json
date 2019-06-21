@@ -9,7 +9,8 @@
     "build:dev": "npm run clean && webpack --config webpack.config.js",
     "start": "nodemon dist/app.js",
     "start:dev": "nodemon app.ts",
-    "lint": "tslint -c tslint.json 'api/**/*.ts'"
+    "lint": "tslint -c tslint.json 'api/**/*.ts'",
+    "commit": "npx git-cz"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.17.0",
     "body-parser": "^1.19.0",
+    "commitizen": "^3.1.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "tslint-config-prettier": "^1.18.0",
