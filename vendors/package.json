@@ -35,6 +35,7 @@
   ],
   "license": "ISC",
   "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0",
     "husky": "^2.4.1",
     "nodemon": "^1.19.1",
     "prettier": "1.18.2",
@@ -58,6 +59,11 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./vendors/node_modules/cz-conventional-changelog"
     }
   }
 }
