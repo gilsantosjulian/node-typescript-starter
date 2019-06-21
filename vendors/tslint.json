@@ -1,18 +1,14 @@
 {
-    "defaultSeverity": "error",
+    "defaultSeverity": "warning",
     "extends": [
         "tslint:recommended",
         "tslint-config-prettier",
         "tslint-eslint-rules"
     ],
     "rules": {
-        "no-console": {"options":[true,"log","error"],"severity":"warning"},
-        "object-literal-sort-keys":{"options":[false],"severity":"warning"},
-        "array-type": {"options":["array"],"severity":"warning"},
+        "object-literal-sort-keys":false,
         "max-line-length": {"options":[90],"severity":"warning"},
-        "no-unused-expression": {"options":[true],"severity":"warning"},
-        "ordered-imports": {"options":[true],"severity":"warning"},
-        "space-before-function-paren": {"options":[true],"severity":"warning"},
-        "comment-format": {"options":[true, "check-space"],"severity":"warning"}
+        "comment-format":[true, "check-space"],
+        "trailing-comma": {"options":[true,"always"],"severity":"error"}
     }
 }

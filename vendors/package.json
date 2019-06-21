@@ -10,7 +10,8 @@
     "start": "nodemon dist/app.js",
     "start:dev": "nodemon app.ts",
     "lint": "tslint -c tslint.json 'api/**/*.ts'",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "repository": {
     "type": "git",
