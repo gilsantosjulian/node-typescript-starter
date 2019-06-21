@@ -9,6 +9,7 @@
         "object-literal-sort-keys":false,
         "max-line-length": {"options":[90],"severity":"warning"},
         "comment-format":[true, "check-space"],
-        "trailing-comma": {"options":[true,"always"],"severity":"error"}
+        "trailing-comma": {"options":[true,"always"],"severity":"error"},
+        "indent":{"options":[true, "tabs"],"severity":"error"}
     }
 }
