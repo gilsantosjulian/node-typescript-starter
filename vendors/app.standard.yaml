@@ -1,0 +1,8 @@
+# Production configuration
+runtime: nodejs10
+service: vendors
+
+instance_class: F4_1G           # RAM Memory and processor capacity reference
+automatic_scaling:            
+  max_instances: 20             # Max number of virtual instances to run
+  target_cpu_utilization: 0.6   # Percentaje index to execute a new virtual instance
