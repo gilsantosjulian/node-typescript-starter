@@ -1,24 +1,9 @@
-const usersMock: Array<object> = [
-  {
-    name: "Julian",
-    username: "juliangils",
-    email: "julian@minka.io"
-  },
-  {
-    name: "Damian",
-    username: "damianf",
-    email: "damian@minka.io"
-  },
-  {
-    name: "Luis",
-    username: "luise",
-    email: "luise@minka.io"
-  }
-];
+import http from "../../../../services/http";
 
 const getMany = async (filters: object): Promise<any> => {
   if (filters) {
-    return usersMock;
+    const response = await http.get("https://pokeapi.co/api/v2/pokemon");
+    return response.data.results;
   }
   new Error("Filter object required");
 };
