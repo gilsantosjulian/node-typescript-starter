@@ -1,10 +1,14 @@
-'use strict';
-import express, { NextFunction, Request, Response, Router } from 'express';
-import controllers from '../controllers';
+"use strict";
+import express, { Router, Request, Response, NextFunction } from "express";
+import controllers from "../controllers";
+import logging from "../../logger";
 
 const router: Router = express.Router();
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+router.use(logging.requestLogger);
+router.use(logging.errorLogger);
+
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response: object = await controllers.usersController.getMany(req);
 

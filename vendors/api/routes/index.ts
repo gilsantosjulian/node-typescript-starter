@@ -1,6 +1,8 @@
-'use strict';
-import usersRoute from './users';
+"use strict";
+import rootRoute from "./root";
+import usersRoute from "./users";
 
 export = {
-  usersRoute,
+  rootRoute,
+  usersRoute
 };
