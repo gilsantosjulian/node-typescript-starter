@@ -9,7 +9,7 @@ const getWinstonTransport = () => {
   if (IS_DEPLOYED) {
     const loggingWinston = new LoggingWinston({
       serviceContext: {
-        service: "action",
+        service: "vendors",
         version: "0.0.1"
       }
     });
