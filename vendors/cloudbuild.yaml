@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  dir: ${_MICROSERVICE}
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', '${_YAML_FILE}']
+  dir: ${_MICROSERVICE}
+timeout: "1600s"
