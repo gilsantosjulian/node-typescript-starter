@@ -1,0 +1,4 @@
+diff a/vendors/api/routes/users.ts b/vendors/api/routes/users.ts	(rejected hunks)
+@@ -2 +2 @@
+-import express, { Router, Request, Response, NextFunction } from 'express';
++import express, { NextFunction, Request, Response, Router } from 'express';

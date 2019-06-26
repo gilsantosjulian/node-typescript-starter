@@ -10,8 +10,9 @@
     "start": "nodemon dist/app.js",
     "start:dev": "nodemon app.ts",
     "lint": "tslint -c tslint.json 'api/**/*.ts'",
-    "commit": "npx git-cz",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "lint:write": "tslint --fix -c tslint.json 'api/**/*.ts'",
+    "commit": "lint-staged && npx git-cz",
+    "prettier": "prettier --write 'api/**/*.ts' "
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,8 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/config-angular": "^8.0.0",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
     "@commitlint/prompt": "^8.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^2.4.1",
@@ -55,6 +57,7 @@
     "commitizen": "^3.1.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "lint-staged": "^8.2.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "webpack": "^4.34.0",
@@ -62,8 +65,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "lint-staged": {
+    "api/**/*.(ts)": [
+      "prettier --write",
+      "tslint --fix -c tslint.json",
+      "git add"
+    ]
   },
   "config": {
     "commitizen": {
@@ -71,3 +81,4 @@
     }
   }
 }
+
