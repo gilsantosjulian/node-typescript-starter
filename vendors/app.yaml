@@ -1,0 +1,12 @@
+runtime: nodejs10
+service: vendors
+
+# This sample incurs costs to run on the App Engine flexible environment.
+# The settings below are to reduce costs during testing and are not appropriate
+# for production use. For more information, see:
+# https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
+instance_class: F4_1G          # RAM Memory and processor capacity reference
+automatic_scaling:
+  max_instances: 10            # Max number of virtual instances to run
+  target_cpu_utilization: 0.7  # Percentaje index to execute a new virtual instance
+
