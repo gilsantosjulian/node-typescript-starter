@@ -1,4 +1,0 @@
-diff a/vendors/api/types/handler.ts b/vendors/api/types/handler.ts	(rejected hunks)
-@@ -1 +1 @@
--import { Request, Response, NextFunction } from 'express';
-+import { NextFunction, Request, Response } from 'express';
