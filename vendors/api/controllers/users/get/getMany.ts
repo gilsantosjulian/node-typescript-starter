@@ -1,5 +1,5 @@
-"use strict";
-import userModel from "../../../db/datastore/users/get/getMany";
+'use strict';
+import userModel from '../../../db/datastore/users/get/getMany';
 
 export const getMany = async (query: object): Promise<any> => {
   try {
@@ -8,7 +8,7 @@ export const getMany = async (query: object): Promise<any> => {
   } catch (err) {
     const error = {
       error: 500,
-      message: err.message
+      message: err.message,
     };
     throw error;
   }

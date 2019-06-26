@@ -1,6 +1,6 @@
-"use strict";
-import { getMany } from "./get/getMany";
+'use strict';
+import { getMany } from './get/getMany';
 
 export = {
-  getMany
+  getMany,
 };

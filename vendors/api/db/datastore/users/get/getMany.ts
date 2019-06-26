@@ -5,9 +5,9 @@ const getMany = async (filters: object): Promise<any> => {
     const response = await http.get("https://pokeapi.co/api/v2/pokemon");
     return response.data.results;
   }
-  new Error("Filter object required");
+  new Error('Filter object required');
 };
 
 export = {
-  getMany
+  getMany,
 };
