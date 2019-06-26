@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import config from "./config";
-const routes = require("./api/routes");
+import routes from "./api/routes";
 
 async function startServer() {
   const app = express();
@@ -19,7 +19,7 @@ async function startServer() {
     `);
   });
 
-  app.get("/", (req: Request, res: Response) => res.send("Hello World!"));
+  app.get("/", (req: Request, res: Response) => res.send("Server is working!"));
 }
 
 startServer();
