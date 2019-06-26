@@ -1,5 +1,5 @@
 'use strict';
-import express, { Router, Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response, Router } from 'express';
 import logging from '../../logger';
 
 const router: Router = express.Router();
