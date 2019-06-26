@@ -1,25 +1,28 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import config from "./config";
 import routes from "./api/routes";
+import logging from "./logger";
 
 async function startServer() {
   const app = express();
 
+  app.get("/", routes.rootRoute);
   app.use("/users", routes.usersRoute);
+
+  app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+    if (error) {
+      logging.error(error);
+    }
+    res.status(500).send(error.message);
+  });
 
   app.listen(config.port, err => {
     if (err) {
-      console.log(err);
+      logging.error(err);
       return;
     }
-    console.log(`
-      ################################################
-      🛡️  Server listening on port: ${config.port} 🛡️ 
-      ################################################
-    `);
+    logging.info(`🛡️  Server running on port ${config.port} 🛡️`);
   });
-
-  app.get("/", (req: Request, res: Response) => res.send("Server is working!"));
 }
 
 startServer();
