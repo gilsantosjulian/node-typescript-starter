@@ -30,7 +30,7 @@ const developmentMsgFormat = combine(
 );
 
 const logger = createLogger({
-  transports: [new transports.Console()],
+  transports: [new transports.Console({ level: "debug" })],
   format: IS_DEPLOYED ? productionMsgFormat : developmentMsgFormat
 });
 
@@ -69,5 +69,5 @@ export = {
   errorLogger,
   info: (message: string) => logger.info(message),
   error: (error: object) => logger.error(error),
-  debug: (debug: object) => logger.debug(debug)
+  debug: (debug: string) => logger.debug(debug)
 };
