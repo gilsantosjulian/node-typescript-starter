@@ -1,15 +1,15 @@
-import axios from "axios";
-import logging from "../../logger";
-import Response from "types/response";
+import axios from 'axios';
+import Response from 'types/response';
+import logging from '../../logger';
 
-const token = "";
+const token = '';
 
 const http = axios.create({
-  baseURL: "",
+  baseURL: '',
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: `Basic ${token}`
-  }
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Basic ${token}`,
+  },
 });
 
 http.interceptors.request.use(request => {
@@ -27,5 +27,5 @@ const post = (url: string, data: object): Promise<Response> => {
 
 export = {
   get,
-  post
+  post,
 };
