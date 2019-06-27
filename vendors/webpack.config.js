@@ -23,6 +23,11 @@ module.exports = {
     extensions: [".ts", ".js"],
     alias: {
       routes: path.resolve(__dirname, './api/routes'),
+      controllers: path.resolve(__dirname, './api/controllers'),
+      helpers: path.resolve(__dirname, './api/helpers'),
+      modules: path.resolve(__dirname, './api/db'),
+      service: path.resolve(__dirname, './api/services'),
+      types: path.resolve(__dirname, './api/types')
     },
   },
   output: {
