@@ -21,8 +21,16 @@ const get = (url: string): Promise<Response> => {
   return http.get(url);
 };
 
-const post = (url: string, data: object): Promise<Response> => {
-  return http.post(url, data);
+const post = (url: string, data: object, token: string): Promise<Response> => {
+  return http({
+    method: 'post',
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+    data,
+  });
 };
 
 export = {

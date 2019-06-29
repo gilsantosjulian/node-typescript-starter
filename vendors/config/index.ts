@@ -18,5 +18,6 @@ export default {
   /**
    * Your secret sauce
    */
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET,
+  urlBase: process.env.URLBASE
 };
