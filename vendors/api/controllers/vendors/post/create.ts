@@ -2,8 +2,9 @@
 import config from '../../../../config';
 import loggin from '../../../../logger';
 import cloudSql from '../../../db/cloud-sql';
-import http from '../../../services/http';
-import tokenGenerator from '../../../services/tokenGenerator';
+import http from '../../../utils/http';
+import setHeader from '../../../utils/setAuthHeaders';
+import tokenGenerator from '../../../utils/tokenGenerator';
 
 export const create = async (query: any): Promise<any> => {
   try {
@@ -31,11 +32,13 @@ export const create = async (query: any): Promise<any> => {
 
     const token = tokenGenerator.generateToken(data);
 
-    const result2 = await http.post(config.urlBase + '/consultaDoc', data, token);
-    return result2.data;
+    setHeader.setHeader(token);
+
+    const resultSHDGet = await http.post('/consultaDoc', data);
+    return resultSHDGet.data;
     // Uncoment to use cloudSql, TODO after mappers, http.post and cloudSql have to work together
-    // const result = await cloudSql.createQuery(query);
-    // return result;
+    // const resultCloudSql = await cloudSql.createQuery(query);
+    // return resultCloudSql;
   } catch (error) {
     loggin.error(error);
     return error;
