@@ -21,7 +21,7 @@ const connectionConfig: any = {
 };
 
 const { NODE_ENV, MINKA_ENV } = process.env;
-if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'development') {
+if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'production') {
   connectionConfig.host = 'config.MYSQL_HOST';
 } else {
   // connectionConfig.extra = {
