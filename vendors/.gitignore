@@ -7,3 +7,6 @@
 
 #rejs
 *.ts.rej
+
+# another
+.DS_Store
