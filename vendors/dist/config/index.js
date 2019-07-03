@@ -19,6 +19,8 @@ exports.default = {
     /**
      * Your secret sauce
      */
-    jwtSecret: process.env.JWT_SECRET
+    jwtSecretKey: process.env.JWT_SECRET,
+    jwtPublicKey: process.env.JWT_PUBLIC,
+    urlBase: process.env.URLBASE
 };
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10,15 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const http_1 = __importDefault(require("../../../../utils/http"));
-const getMany = (filters) => __awaiter(this, void 0, void 0, function* () {
-    if (filters) {
-        const response = yield http_1.default.get('https://pokeapi.co/api/v2/pokemon');
-        return response.data.results;
+Object.defineProperty(exports, "__esModule", { value: true });
+const logger_1 = __importDefault(require("../../../../logger"));
+const cloud_sql_1 = __importDefault(require("../../../db/cloud-sql"));
+exports.getOne = (id) => __awaiter(this, void 0, void 0, function* () {
+    try {
+        const result = yield cloud_sql_1.default.readOneQuery(id);
+        return result;
     }
-    new Error('Filter object required');
+    catch (error) {
+        logger_1.default.error(error);
+        return error;
+    }
 });
-module.exports = {
-    getMany,
-};
-//# sourceMappingURL=getMany.js.map
+//# sourceMappingURL=getOne.js.map

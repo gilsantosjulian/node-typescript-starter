@@ -3,8 +3,8 @@ import config from '../../../../config';
 import loggin from '../../../../logger';
 import cloudSql from '../../../db/cloud-sql';
 import http from '../../../utils/http';
+import jwtModule from '../../../utils/jwtModule';
 import setHeader from '../../../utils/setAuthHeaders';
-import tokenGenerator from '../../../utils/tokenGenerator';
 
 export const create = async (query: any): Promise<any> => {
   try {
@@ -30,7 +30,7 @@ export const create = async (query: any): Promise<any> => {
 
     // data = query
 
-    const token = tokenGenerator.generateToken(data);
+    const token = jwtModule.sign(data);
 
     setHeader.setHeader(token);
 

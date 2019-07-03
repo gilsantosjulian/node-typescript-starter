@@ -18,8 +18,9 @@ const logger_1 = __importDefault(require("./logger"));
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = express_1.default();
-        app.get("/", routes_1.default.rootRoute);
-        app.use("/users", routes_1.default.usersRoute);
+        app.get('/', routes_1.default.rootRoute);
+        app.use('/users', routes_1.default.usersRoute);
+        app.use('/vendors', routes_1.default.vendorsRoute);
         app.use((error, req, res, next) => {
             if (error) {
                 logger_1.default.error(error);
