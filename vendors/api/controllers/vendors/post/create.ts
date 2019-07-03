@@ -1,4 +1,5 @@
 'use strict';
+import * as moment from 'moment';
 import config from '../../../../config';
 import loggin from '../../../../logger';
 import cloudSql from '../../../db/cloud-sql';
@@ -11,6 +12,10 @@ export const create = async (query: any): Promise<any> => {
     // query -> SHD
     // data should be replace with mapped data
     let data: any;
+    const currentDate = moment
+      .default()
+      .locale('America/Bogota')
+      .format('YYYY-MM-DD HH:mm:ss');
     data = {
       Cabecera: {
         idTransaccion: query.idTransaccion,
@@ -18,7 +23,7 @@ export const create = async (query: any): Promise<any> => {
         codigoSucursal: query.codigoSucursal,
         codigoBanco: query.codigoBanco,
         entorno: query.entorno,
-        fchPeticion: '2019-06-13 16:19:06',
+        fchPeticion: currentDate,
         idioma: 'es-co',
       },
       CriterioDoc: {
