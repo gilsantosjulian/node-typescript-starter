@@ -30,8 +30,12 @@ export const create = async (query: any): Promise<any> => {
     // data = query
 
     const token = tokenGenerator.generateToken(data);
+
     const result2 = await http.post(config.urlBase + '/consultaDoc', data, token);
     return result2.data;
+    // Uncoment to use cloudSql, TODO after mappers, http.post and cloudSql have to work together
+    // const result = await cloudSql.createQuery(query);
+    // return result;
   } catch (error) {
     loggin.error(error);
     return error;
