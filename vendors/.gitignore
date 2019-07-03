@@ -10,3 +10,6 @@
 
 #key
 *.pem
+
+# another
+.DS_Store
