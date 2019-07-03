@@ -11,7 +11,6 @@ router.use(logging.errorLogger);
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response: object = await controllers.vendorsController.create(req.query);
-
     res.status(200).send({
       code: 200,
       status: 'success',
@@ -19,6 +18,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
       data: response,
     });
   } catch (error) {
+    logging.error(error);
     res.status(500).send(error);
   }
 });

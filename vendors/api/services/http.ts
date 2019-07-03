@@ -21,15 +21,15 @@ const get = (url: string): Promise<Response> => {
   return http.get(url);
 };
 
-const post = (url: string, data: object, token: string): Promise<Response> => {
+const post = (requestUrl: string, requestData: any, token: string): Promise<Response> => {
   return http({
     method: 'post',
-    url,
+    url: requestUrl,
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     },
-    data,
+    data: requestData,
   });
 };
 
