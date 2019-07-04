@@ -1,11 +1,10 @@
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
 import md5 from 'md5';
-import config from '../../config';
+const config = require('config');
 import loggin from '../../logger';
 
-const jwtSecretKey = fs.readFileSync(config.jwtSecretKey, 'utf8');
-const jwtPublicKey = fs.readFileSync(config.jwtPublicKey, 'utf8');
+const jwtSecretKey = fs.readFileSync(process.env.JWT_SECRET, 'utf8');
 const iss = 'ConsultaDocumento';
 const sub = 'ACHS';
 const algorithm = 'RS256';
@@ -33,9 +32,9 @@ const sign = (body: any): string => {
   }
 };
 
-const verify = (token: string, options: any) => {
+const verify = (token: string, key: string) => {
   try {
-    return jwt.verify(token, jwtPublicKey);
+    return jwt.verify(token, key);
   } catch (error) {
     loggin.error(error);
     return false;

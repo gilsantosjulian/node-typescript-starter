@@ -1,22 +1,21 @@
 'use strict';
 import * as moment from 'moment';
-import config from '../../../../config';
 import loggin from '../../../../logger';
 import cloudSql from '../../../db/cloud-sql';
+import bearerTokenManager from '../../../utils/bearerTokenManager';
 import http from '../../../utils/http';
-import jwtModule from '../../../utils/jwtModule';
-import setHeader from '../../../utils/setAuthHeaders';
+import jwtManager from '../../../utils/jwtManager';
 
 export const create = async (query: any): Promise<any> => {
   try {
     // query -> SHD
     // data should be replace with mapped data
-    let data: any;
     const currentDate = moment
       .default()
       .locale('America/Bogota')
       .format('YYYY-MM-DD HH:mm:ss');
-    data = {
+
+    const data: object = {
       Cabecera: {
         idTransaccion: query.idTransaccion,
         codigoCanal: query.codigoCanal,
@@ -33,11 +32,8 @@ export const create = async (query: any): Promise<any> => {
       },
     };
 
-    // data = query
-
-    const token = jwtModule.sign(data);
-
-    setHeader.setHeader(token);
+    const token = jwtManager.sign(data);
+    bearerTokenManager.setBearerToken(token);
 
     const resultSHDGet = await http.post('/consultaDoc', data);
     return resultSHDGet.data;

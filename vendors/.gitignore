@@ -8,8 +8,8 @@
 #rejs
 *.ts.rej
 
-#key
-*.pem
+#keys
+/keys
 
 # another
 .DS_Store
