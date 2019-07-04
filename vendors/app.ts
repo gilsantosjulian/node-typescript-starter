@@ -1,7 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
-import config from './config';
+import { loadEnvironmentVariables } from './config';
 import routes from './api/routes';
 import logging from './logger';
+
+const config = require('config');
+loadEnvironmentVariables();
+
+const PORT = config.PORT;
 
 async function startServer() {
   const app = express();
@@ -17,12 +22,12 @@ async function startServer() {
     res.status(500).send(error.message);
   });
 
-  app.listen(config.port, err => {
+  app.listen(PORT, (err: any) => {
     if (err) {
       logging.error(err);
       return;
     }
-    logging.info(`🛡️  Server running on port ${config.port} 🛡️`);
+    logging.info(`🛡️  Server running on port ${PORT} 🛡️`);
   });
 }
 

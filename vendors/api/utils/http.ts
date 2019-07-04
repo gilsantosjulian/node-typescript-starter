@@ -1,10 +1,11 @@
 import axios from 'axios';
 import Response from 'types/response';
-import config from '../../config';
 import logging from '../../logger';
 
+const config = require('config');
+
 const http = axios.create({
-  baseURL: config.urlBase,
+  baseURL: config.URL_BASE,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,15 +1,15 @@
 import http from './http';
 
-const setHeader = (token: string) => {
-  deleteHeader();
+const setBearerToken = (token: string) => {
+  deleteBearerToken();
   http.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const deleteHeader = () => {
+const deleteBearerToken = () => {
   delete http.defaults.headers.common.Authorization;
 };
 
 export = {
-  setHeader,
-  deleteHeader,
+  setBearerToken,
+  deleteBearerToken,
 };
