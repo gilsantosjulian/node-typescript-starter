@@ -8,5 +8,8 @@
 #rejs
 *.ts.rej
 
+#key
+*.pem
+
 # another
 .DS_Store

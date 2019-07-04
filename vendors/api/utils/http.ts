@@ -1,14 +1,12 @@
 import axios from 'axios';
 import Response from 'types/response';
+import config from '../../config';
 import logging from '../../logger';
 
-const token = '';
-
 const http = axios.create({
-  baseURL: '',
+  baseURL: config.urlBase,
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    Authorization: `Basic ${token}`,
+    'Content-Type': 'application/json',
   },
 });
 
@@ -21,11 +19,14 @@ const get = (url: string): Promise<Response> => {
   return http.get(url);
 };
 
-const post = (url: string, data: object): Promise<Response> => {
-  return http.post(url, data);
+const post = (requestUrl: string, requestData: any): Promise<Response> => {
+  return http.post(requestUrl, requestData);
 };
+
+const defaults = http.defaults;
 
 export = {
   get,
   post,
+  defaults,
 };
