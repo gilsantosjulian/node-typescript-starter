@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import logging from '../../../logger';
 
