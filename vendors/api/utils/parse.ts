@@ -65,4 +65,5 @@ const formatDB = (dataShd: any, query: any): object => {
 export = {
   formatShd,
   formatDB,
+  c,
 };
