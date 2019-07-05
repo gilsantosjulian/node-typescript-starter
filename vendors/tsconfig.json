@@ -17,7 +17,7 @@
       "helpers/*": ["api/helpers/*"],
       "modules/*": ["./api/db/*"],
       "routes/*": ["./api/routes/*"],
-      "services/*": ["api/services/*"],
+      "services/*": ["api/utils/*"],
       "types/*": ["api/types/*"]
     },
     "lib": ["es2015"] // Specify library files to be included in the compilation.

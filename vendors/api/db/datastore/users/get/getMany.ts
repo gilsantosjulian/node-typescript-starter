@@ -1,4 +1,4 @@
-import http from '../../../../services/http';
+import http from '../../../../utils/http';
 
 const getMany = async (filters: object): Promise<any> => {
   if (filters) {

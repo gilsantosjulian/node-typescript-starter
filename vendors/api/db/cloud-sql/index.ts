@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import logging from '../../../logger';
 
@@ -9,12 +10,12 @@ const QUERY_TABLE = 'queries';
 
 const connectionConfig: any = {
   type: 'mysql',
-  host: '35.196.100.211',
+  host: process.env.MYSQL_HOST,
   port: '3306',
-  username: 'root',
-  password: 'Lem99xAIiw4tntxi',
-  database: 'vendors',
-  extra: 'ach-shd-test:us-east1:shd-api-tst',
+  username: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  extra: process.env.INSTANCE_CONNECTION_NAME,
   synchronize: true,
   entities: [QueryEntity],
 };
