@@ -9,10 +9,10 @@ router.use(logging.requestLogger);
 router.use(logging.errorLogger);
 
 router.get(
-  '/:wallet_vendor/invoice/:invoiceId/',
+  '/:vendor_wallet/invoice/:invoice_id',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const response: object = await controllers.vendorsController.create(req.query);
+      const response: object = await controllers.vendorsController.create(req);
       res.status(200).send({
         code: 200,
         status: 'success',
