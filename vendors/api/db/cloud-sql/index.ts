@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import logging from '../../../logger';
 
@@ -22,7 +21,7 @@ const connectionConfig: any = {
 
 const { NODE_ENV, MINKA_ENV } = process.env;
 if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'production') {
-  connectionConfig.host = 'config.MYSQL_HOST';
+  connectionConfig.host = process.env.MYSQL_HOST;
 } else {
   // connectionConfig.extra = {
   //   socketPath: `/cloudsql/${config.INSTANCE_CONNECTION_NAME)}`,
@@ -32,6 +31,7 @@ if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'production') {
 let connection: any = null;
 const connectHoc = async (fn: any, data: any, table: string) => {
   try {
+    console.log(data);
     if (connection === null) {
       connection = await createConnection(connectionConfig);
     }

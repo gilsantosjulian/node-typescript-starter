@@ -8,21 +8,24 @@ const router: Router = express.Router();
 router.use(logging.requestLogger);
 router.use(logging.errorLogger);
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const response: any = await controllers.vendorsController.create(req.query);
-    res.status(200).send({
-      code: 200,
-      status: 'success',
-      message: null,
-      data: response.data,
-      error: response.error,
-    });
-  } catch (error) {
-    logging.error(error);
-    res.status(500).send(error);
-  }
-});
+router.get(
+  '/:vendor_wallet/invoice/:invoice_id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const response: any = await controllers.vendorsController.create(req);
+      res.status(200).send({
+        code: 200,
+        status: 'success',
+        message: null,
+        data: response.data,
+        error: response.error,
+      });
+    } catch (error) {
+      logging.error(error);
+      res.status(500).send(error);
+    }
+  },
+);
 
 router.get('/all', async (req: Request, res: Response, next: NextFunction) => {
   try {
