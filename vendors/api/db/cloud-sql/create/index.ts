@@ -10,11 +10,11 @@ const createQuery = async (connection: any, queryData: object) => {
       query.vendor = 'test';
     */
 
-    const query = new Query();
-    query.vendor = 'test';
+    // const query = new Query();
+    // query.vendor = 'test';
 
     const queryRepository = connection.getRepository(Query);
-    return queryRepository.save(query).then((query: any) => {
+    return queryRepository.save(queryData).then((query: any) => {
       loggin.info(`Query has been saved. Query id is ${query.id}`);
     });
   } catch (error) {
