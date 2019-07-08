@@ -5,6 +5,7 @@ import bearerTokenManager from '../../../utils/bearerTokenManager';
 import http from '../../../utils/http';
 import jwtManager from '../../../utils/jwtManager';
 import parseJson from '../../../utils/parse-shd';
+import errorMaper from './helpers/errorMaper';
 
 export const create = async (query: any): Promise<any> => {
   try {
@@ -15,7 +16,12 @@ export const create = async (query: any): Promise<any> => {
     bearerTokenManager.setBearerToken(token);
 
     const resultSHDGet = await http.post('/consultaDoc', data);
-    return resultSHDGet.data;
+    const errorCode = String(resultSHDGet.data.CabeceraResp.codigoResp);
+    const result: any = {
+      data: resultSHDGet.data,
+      error: errorMaper.mapper(errorCode),
+    };
+    return result;
     // Uncoment to use cloudSql, TODO after mappers, http.post and cloudSql have to work together
     // const resultCloudSql = await cloudSql.createQuery(query);
     // return resultCloudSql;
