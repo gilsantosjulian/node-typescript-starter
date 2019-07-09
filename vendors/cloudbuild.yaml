@@ -17,6 +17,18 @@ steps:
   - --location=us-east1
   - --keyring=${_KEYRING}
   - --key=${_KEY}
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_PRIVATE_KEY}
+  - --plaintext-file=dist/keys/private-key.pem
+  - --location=us-east1
+  - --keyring=${_KEYRING}
+  - --key=${_KEY}
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_PUBLIC_KEY}
+  - --plaintext-file=dist/keys/public-key.pem
+  - --location=us-east1
+  - --keyring=${_KEYRING}
+  - --key=${_KEY}
   dir: ${_MICROSERVICE}
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', '${_YAML_FILE}']
