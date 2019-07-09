@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "copy-env-vars": "cp ./config/.env.example ./dist/config/.env.example && mkdir -p dist/keys",
+    "copy-env-vars": "cp ./config/.env.example ./dist/config/.env.example",
     "build": "npm run clean && tsc",
     "build:dev": "npm run clean && webpack --config webpack.config.js",
     "start": "node dist/app.js",
