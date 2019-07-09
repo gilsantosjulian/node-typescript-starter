@@ -6,7 +6,10 @@ steps:
   args: ['run', 'build']
   dir: ${_MICROSERVICE}
 - name: 'ubuntu'
-  args: ['bash', 'mkdir dist/config']
+  args: ['bash', 'tree dist']
+  dir: ${_MICROSERVICE}
+- name: 'ubuntu'
+  args: ['bash', 'mkdir -p dist/config']
   dir: ${_MICROSERVICE}
 - name: 'ubuntu'
   args: ['bash', 'cp ./config/.env.example ./dist/config/.env.example']
