@@ -1,25 +1,34 @@
-import express, { Request, Response } from "express";
-import config from "./config";
-const routes = require("./api/routes");
+import express, { Request, Response, NextFunction } from 'express';
+import { loadEnvironmentVariables } from './config';
+import routes from './api/routes';
+import logging from './logger';
+
+const config = require('config');
+loadEnvironmentVariables();
+
+const PORT = config.PORT;
 
 async function startServer() {
   const app = express();
 
-  app.use("/users", routes.usersRoute);
+  app.get('/', routes.rootRoute);
+  app.use('/users', routes.usersRoute);
+  app.use('/vendors', routes.vendorsRoute);
 
-  app.listen(config.port, err => {
-    if (err) {
-      console.log(err);
-      return;
+  app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+    if (error) {
+      logging.error(error);
     }
-    console.log(`
-      ################################################
-      🛡️  Server listening on port: ${config.port} 🛡️ 
-      ################################################
-    `);
+    res.status(500).send(error.message);
   });
 
-  app.get("/", (req: Request, res: Response) => res.send("Hello World!"));
+  app.listen(PORT, (err: any) => {
+    if (err) {
+      logging.error(err);
+      return;
+    }
+    logging.info(`🛡️  Server running on port ${PORT} 🛡️`);
+  });
 }
 
 startServer();

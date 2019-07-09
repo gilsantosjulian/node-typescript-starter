@@ -8,6 +8,8 @@
     "sourceMap": true, // Generates corresponding '.map' file.
     "outDir": "./dist/", // Redirect output structure to the directory.
     "baseUrl": ".", // Base directory to resolve non-absolute module names.
+    "experimentalDecorators": true, // Enable decorators in our cloud-sql entities
+    "emitDecoratorMetadata": true, // Enable decorators in our cloud-sql entities
     "paths": {
       // A series of entries which re-map imports to lookup locations relative to the 'baseUrl'.
       "config/*": ["config/*"],
@@ -15,11 +17,10 @@
       "helpers/*": ["api/helpers/*"],
       "modules/*": ["./api/db/*"],
       "routes/*": ["./api/routes/*"],
-      "services/*": ["api/services/*"],
+      "services/*": ["api/utils/*"],
       "types/*": ["api/types/*"]
     },
     "lib": ["es2015"] // Specify library files to be included in the compilation.
   },
-  "include": ["./api/**/*"],
   "exclude": ["node_modules"]
 }

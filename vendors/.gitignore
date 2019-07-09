@@ -1,3 +1,15 @@
 # dependencies
 /node_modules
 .env
+
+#logs
+*.log
+
+#rejs
+*.ts.rej
+
+#keys
+/keys
+
+# another
+.DS_Store

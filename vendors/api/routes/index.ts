@@ -1,7 +1,10 @@
-"use strict";
+'use strict';
+import rootRoute from './root';
+import usersRoute from './users';
+import vendorsRoute from './vendors';
 
-const usersRoute = require("./users.ts");
-
-module.exports = {
-  usersRoute
+export = {
+  rootRoute,
+  usersRoute,
+  vendorsRoute,
 };
