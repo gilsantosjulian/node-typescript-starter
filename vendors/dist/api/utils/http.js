@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const axios_1 = __importDefault(require("axios"));
-const config_1 = __importDefault(require("../../config"));
 const logger_1 = __importDefault(require("../../logger"));
+const config = require('config');
 const http = axios_1.default.create({
-    baseURL: config_1.default.urlBase,
+    baseURL: config.URL_BASE,
     headers: {
         'Content-Type': 'application/json',
     },

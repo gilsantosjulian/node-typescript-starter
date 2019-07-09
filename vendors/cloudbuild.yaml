@@ -4,7 +4,7 @@ steps:
   - kms
   - decrypt
   - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_FILE}
-  - --plaintext-file=.env
+  - --plaintext-file=config/.env
   - --location=us-east1
   - --keyring=${_KEYRING}
   - --key=${_KEY}

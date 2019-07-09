@@ -21,10 +21,10 @@ const createQuery = (connection, queryData) => __awaiter(this, void 0, void 0, f
           let query = new Query();
           query.vendor = 'test';
         */
-        const query = new query_1.default();
-        query.vendor = 'test';
+        // const query = new Query();
+        // query.vendor = 'test';
         const queryRepository = connection.getRepository(query_1.default);
-        return queryRepository.save(query).then((query) => {
+        return queryRepository.save(queryData).then((query) => {
             loggin.info(`Query has been saved. Query id is ${query.id}`);
         });
     }

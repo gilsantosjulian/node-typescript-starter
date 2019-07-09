@@ -20,6 +20,78 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], Query.prototype, "vendor", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "invoice", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "subscription", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "nature", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "processor", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "branch", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "environment", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "value", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "txId", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Date)
+], Query.prototype, "sourceDate", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "language", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "reference", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "resId", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "responseType", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "description", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Date)
+], Query.prototype, "expirationDate", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "invoiceStatus", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "value2", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Query.prototype, "labels", void 0);
 Query = __decorate([
     typeorm_1.Entity()
 ], Query);

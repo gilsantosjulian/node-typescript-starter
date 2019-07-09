@@ -12,10 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const fs = __importStar(require("fs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const md5_1 = __importDefault(require("md5"));
-const config_1 = __importDefault(require("../../config"));
+const config = require('config');
 const logger_1 = __importDefault(require("../../logger"));
-const jwtSecretKey = fs.readFileSync(config_1.default.jwtSecretKey, 'utf8');
-const jwtPublicKey = fs.readFileSync(config_1.default.jwtPublicKey, 'utf8');
+const jwtSecretKey = fs.readFileSync(process.env.JWT_SECRET, 'utf8');
 const iss = 'ConsultaDocumento';
 const sub = 'ACHS';
 const algorithm = 'RS256';
@@ -25,12 +24,12 @@ const sign = (body) => {
         const jti = md5_1.default(JSON.stringify(body));
         const payload = {
             jti,
-            iss: iss,
-            sub: sub,
+            iss,
+            sub,
             iat: date.getTime(),
         };
         return jwt.sign(payload, jwtSecretKey, {
-            algorithm: algorithm,
+            algorithm,
             header: {
                 typ: 'jwt',
             },
@@ -41,9 +40,9 @@ const sign = (body) => {
         return error;
     }
 };
-const verify = (token, options) => {
+const verify = (token, key) => {
     try {
-        return jwt.verify(token, jwtPublicKey);
+        return jwt.verify(token, key);
     }
     catch (error) {
         logger_1.default.error(error);
@@ -64,4 +63,4 @@ module.exports = {
     verify,
     decode,
 };
-//# sourceMappingURL=jwtModule.js.map
+//# sourceMappingURL=jwtManager.js.map

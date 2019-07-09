@@ -5,7 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc",
+    "copy-env-vars": "cp ./config/.env ./dist/config/.env && cp ./config/.env.example ./dist/config/.env.example",
+    "build": "npm run clean && tsc && npm run copy-env-vars",
     "build:dev": "npm run clean && webpack --config webpack.config.js",
     "start": "node dist/app.js",
     "start:dev": "nodemon app.ts",
@@ -25,8 +26,7 @@
     "vendors"
   ],
   "author": "Julián Andrés Gil Santos",
-  "contributors": [
-    {
+  "contributors": [{
       "name": "Damian Fandiño",
       "email": "damian@minka.io"
     },

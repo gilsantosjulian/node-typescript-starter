@@ -12,38 +12,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = __importDefault(require("../../../../logger"));
-const http_1 = __importDefault(require("../../../utils/http"));
-const setAuthHeaders_1 = __importDefault(require("../../../utils/setAuthHeaders"));
-const jwtModule_1 = __importDefault(require("../../../utils/jwtModule"));
+const cloud_sql_1 = __importDefault(require("../../../db/cloud-sql"));
+const bearerTokenManager_1 = __importDefault(require("../../../utils/bearerTokenManager"));
+const jwtManager_1 = __importDefault(require("../../../utils/jwtManager"));
+const parse_1 = __importDefault(require("../../../utils/parse"));
 exports.create = (query) => __awaiter(this, void 0, void 0, function* () {
     try {
         // query -> SHD
-        // data should be replace with mapped data
-        let data;
-        data = {
-            Cabecera: {
-                idTransaccion: query.idTransaccion,
-                codigoCanal: query.codigoCanal,
-                codigoSucursal: query.codigoSucursal,
-                codigoBanco: query.codigoBanco,
-                entorno: query.entorno,
-                fchPeticion: '2019-06-13 16:19:06',
+        const data = parse_1.default.formatShd(query);
+        const respShd = {
+            CabeceraResp: {
+                codigoResp: '200',
+                severidadResp: 'I',
+                descripcionResp: 'Exito',
+                idTransaccionOrigen: '823heww912',
+                fchRespuesta: '2018-08-21 10:11:00',
                 idioma: 'es-co',
             },
-            CriterioDoc: {
-                nroRefRecaudo: query.nroRefRecaudo,
-                refAdicional: query.refAdicional,
-                valorRecaudar: Number(query.valorRecaudar),
+            Documento: {
+                nroRefRecaudo: '1234784901',
+                codigoEAN: '6676532982721',
+                refAdicional: 'NA',
+                valorRecaudar: '300000',
+                fchVencimiento: '2018-08-22',
+                estadoDoc: 'Disponible',
+                valorConAporte: '315000',
             },
         };
-        // data = query
-        const token = jwtModule_1.default.sign(data);
-        setAuthHeaders_1.default.setHeader(token);
-        const resultSHDGet = yield http_1.default.post('/consultaDoc', data);
-        return resultSHDGet.data;
+        const token = jwtManager_1.default.sign(data);
+        bearerTokenManager_1.default.setBearerToken(token);
+        const dataDB = parse_1.default.formatDB(respShd, query);
+        // const resultSHDGet = await http.post('/consultaDoc', data);
+        // return resultSHDGet.data;
         // Uncoment to use cloudSql, TODO after mappers, http.post and cloudSql have to work together
-        // const resultCloudSql = await cloudSql.createQuery(query);
-        // return resultCloudSql;
+        const resultCloudSql = yield cloud_sql_1.default.createQuery(dataDB);
+        return resultCloudSql;
     }
     catch (error) {
         logger_1.default.error(error);
