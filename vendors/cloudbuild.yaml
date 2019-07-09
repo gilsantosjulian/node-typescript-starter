@@ -5,11 +5,8 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'build']
   dir: ${_MICROSERVICE}
-- name: 'ubuntu'
-  args: ['bash', 'mkdir -p dist/config']
-  dir: ${_MICROSERVICE}
-- name: 'ubuntu'
-  args: ['bash', 'cp ./config/.env.example ./dist/config/.env.example']
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'copy-env-vars']
   dir: ${_MICROSERVICE}
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
