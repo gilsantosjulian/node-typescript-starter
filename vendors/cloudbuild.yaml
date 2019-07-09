@@ -3,8 +3,8 @@ steps:
   args:
   - kms
   - decrypt
-  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_FILE}
-  - --plaintext-file=config/.env
+  - --ciphertext-file=dist/config/encrypted-files/${_ENCRYPTED_FILE}
+  - --plaintext-file=dist/config/.env
   - --location=us-east1
   - --keyring=${_KEYRING}
   - --key=${_KEY}
