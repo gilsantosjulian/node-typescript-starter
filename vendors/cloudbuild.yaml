@@ -4,8 +4,12 @@ steps:
   - kms
   - decrypt
   - --ciphertext-file=dist/config/encrypted-files/${_ENCRYPTED_FILE}
+  - --echo step 1
   - --plaintext-file=dist/config/.env
+  - --echo step 2
+  - --echo $(ls)
   - --location=us-east1
+  - --echo step 3
   - --keyring=${_KEYRING}
   - --key=${_KEY}
   dir: ${_MICROSERVICE}
