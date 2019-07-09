@@ -7,3 +7,9 @@
 
 #rejs
 *.ts.rej
+
+#keys
+/keys
+
+# another
+.DS_Store
