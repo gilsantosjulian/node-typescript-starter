@@ -5,11 +5,17 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'build']
   dir: ${_MICROSERVICE}
+- name: 'ubuntu'
+  args: ['bash', 'mkdir dist/config']
+  dir: ${_MICROSERVICE}
+- name: 'ubuntu'
+  args: ['bash', 'cp ./config/.env.example ./dist/config/.env.example']
+  dir: ${_MICROSERVICE}
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - kms
   - decrypt
-  - --ciphertext-file=dist/config/encrypted-files/${_ENCRYPTED_FILE}
+  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_FILE}
   - --plaintext-file=dist/config/.env
   - --location=us-east1
   - --keyring=${_KEYRING}
