@@ -42,9 +42,9 @@ const formatDB = (dataShd: any, query: any): object => {
       invoice: dataShd.Documento.nroRefRecaudo, // nroRefRecaudo
       subscription: dataShd.Documento.codigoEAN, // codigoEAN
       nature: query.query.nature, // codigoCanal
-      processor: query.query.nature, // codigoBanco
-      branch: query.query.nature, // codigoSucursal
-      environment: query.query.nature, // entorno
+      processor: query.query.processor, // codigoBanco
+      branch: query.query.branch, // codigoSucursal
+      environment: query.query.environment, // entorno
       value: dataShd.Documento.valorRecaudar, // valorRecaudar
       txId: dataShd.CabeceraResp.idTransaccionOrigen, // idTransaccion
       sourceDate: query.query.sourceDate, // fchPeticion

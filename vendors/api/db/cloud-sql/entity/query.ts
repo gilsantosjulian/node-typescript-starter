@@ -26,7 +26,7 @@ export default class Query {
   public sourceDate: Date;
   @Column()
   public language: string;
-  @Column()
+  @Column({ nullable: true })
   public reference: string;
   @Column()
   public resId: string;
