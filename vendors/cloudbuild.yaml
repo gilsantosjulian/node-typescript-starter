@@ -6,9 +6,6 @@ steps:
   args: ['run', 'build']
   dir: ${_MICROSERVICE}
 - name: 'ubuntu'
-  args: ['bash', 'ls']
-  dir: ${_MICROSERVICE}
-- name: 'ubuntu'
   args: ['bash', 'mkdir -p dist/config']
   dir: ${_MICROSERVICE}
 - name: 'ubuntu'
