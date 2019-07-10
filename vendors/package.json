@@ -12,7 +12,7 @@
     "start:dev": "nodemon app.ts",
     "lint": "tslint -c tslint.json 'api/**/*.ts'",
     "lint:write": "tslint --fix -c tslint.json 'api/**/*.ts'",
-    "commit": "lint-staged && npx git-cz",
+    "cz": "lint-staged && npx git-cz",
     "prettier": "prettier --write \"api/**/*.ts\" "
   },
   "repository": {
@@ -26,8 +26,7 @@
     "vendors"
   ],
   "author": "Julián Andrés Gil Santos",
-  "contributors": [
-    {
+  "contributors": [{
       "name": "Damian Fandiño",
       "email": "damian@minka.io"
     },

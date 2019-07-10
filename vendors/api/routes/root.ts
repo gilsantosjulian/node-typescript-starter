@@ -4,11 +4,10 @@ import logging from '../../logger';
 
 const router: Router = express.Router();
 
-// router.use(logging.requestLogger);
-// router.use(logging.errorLogger);
+router.use(logging.requestLogger);
+router.use(logging.errorLogger);
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  console.log('step: root');
   const response = '🛡️  Server is working 🛡️';
   res.status(200).send({
     code: 200,

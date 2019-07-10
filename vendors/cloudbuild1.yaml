@@ -1,0 +1,44 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  dir: './'
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+  dir: './'
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'copy-env-vars']
+  dir: './'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/env.enc.tst
+  - --plaintext-file=dist/config/.env
+  - --location=us-east1
+  - --keyring=tst
+  - --key=env-variables
+  dir: './'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/private_key.enc.tst
+  - --plaintext-file=dist/config/private-key.pem
+  - --location=us-east1
+  - --keyring=tst
+  - --key=env-variables
+  dir: './'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/public_key.enc.tst
+  - --plaintext-file=dist/config/public-key.pem
+  - --location=us-east1
+  - --keyring=tst
+  - --key=env-variables
+  dir: './'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', 'app.yaml']
+  dir: './'
+timeout: "1600s"
