@@ -26,7 +26,8 @@
     "vendors"
   ],
   "author": "Julián Andrés Gil Santos",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Damian Fandiño",
       "email": "damian@minka.io"
     },
@@ -51,6 +52,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "@google-cloud/debug-agent": "^4.0.1",
     "@google-cloud/logging-winston": "^1.1.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.17.0",

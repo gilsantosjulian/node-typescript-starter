@@ -3,6 +3,10 @@ import { loadEnvironmentVariables } from './config';
 import routes from './api/routes';
 import logging from './logger';
 
+require('@google-cloud/debug-agent').start({
+  allowExpressions: true,
+});
+
 const config = require('config');
 loadEnvironmentVariables();
 
