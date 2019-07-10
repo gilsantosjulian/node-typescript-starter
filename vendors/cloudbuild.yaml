@@ -2,6 +2,42 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
   dir: ${_MICROSERVICE}
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+  dir: ${_MICROSERVICE}
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'copy-env-vars']
+  dir: ${_MICROSERVICE}
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_FILE}
+  - --plaintext-file=dist/config/.env
+  - --location=us-east1
+  - --keyring=${_KEYRING}
+  - --key=${_KEY}
+  dir: ${_MICROSERVICE}
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_PRIVATE_KEY}
+  - --plaintext-file=config/private-key.pem
+  - --location=us-east1
+  - --keyring=${_KEYRING}
+  - --key=${_KEY}
+  dir: ${_MICROSERVICE}
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_PUBLIC_KEY}
+  - --plaintext-file=config/public-key.pem
+  - --location=us-east1
+  - --keyring=${_KEYRING}
+  - --key=${_KEY}
+  dir: ${_MICROSERVICE}
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', '${_YAML_FILE}']
   dir: ${_MICROSERVICE}

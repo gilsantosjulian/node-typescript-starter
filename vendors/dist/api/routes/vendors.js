@@ -16,9 +16,9 @@ const controllers_1 = __importDefault(require("../controllers"));
 const router = express_1.default.Router();
 router.use(logger_1.default.requestLogger);
 router.use(logger_1.default.errorLogger);
-router.get('/', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+router.get('/:vendor_wallet/invoice/:invoice_id', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const response = yield controllers_1.default.vendorsController.create(req.query);
+        const response = yield controllers_1.default.vendorsController.create(req);
         res.status(200).send({
             code: 200,
             status: 'success',

@@ -5,6 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "clean": "rm -rf ./dist",
+    "copy-env-vars": "cp ./config/.env.example ./dist/config/.env.example",
     "build": "npm run clean && tsc",
     "build:dev": "npm run clean && webpack --config webpack.config.js",
     "start": "node dist/app.js",
@@ -25,8 +26,7 @@
     "vendors"
   ],
   "author": "Julián Andrés Gil Santos",
-  "contributors": [
-    {
+  "contributors": [{
       "name": "Damian Fandiño",
       "email": "damian@minka.io"
     },
@@ -70,6 +70,7 @@
     "moment": "^2.24.0",
     "mysql": "^2.17.1",
     "path": "^0.12.7",
+    "query-string": "^6.8.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "typeorm": "^0.2.18",

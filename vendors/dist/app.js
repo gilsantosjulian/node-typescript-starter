@@ -12,9 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const config_1 = __importDefault(require("./config"));
+const config_1 = require("./config");
 const routes_1 = __importDefault(require("./api/routes"));
 const logger_1 = __importDefault(require("./logger"));
+const config = require('config');
+config_1.loadEnvironmentVariables();
+const PORT = config.PORT;
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = express_1.default();
@@ -27,12 +30,12 @@ function startServer() {
             }
             res.status(500).send(error.message);
         });
-        app.listen(config_1.default.port, err => {
+        app.listen(PORT, (err) => {
             if (err) {
                 logger_1.default.error(err);
                 return;
             }
-            logger_1.default.info(`🛡️  Server running on port ${config_1.default.port} 🛡️`);
+            logger_1.default.info(`🛡️  Server running on port ${PORT} 🛡️`);
         });
     });
 }
