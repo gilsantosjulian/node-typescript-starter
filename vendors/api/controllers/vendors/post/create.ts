@@ -5,13 +5,15 @@ import bearerTokenManager from '../../../utils/bearerTokenManager';
 import http from '../../../utils/http';
 import jwtManager from '../../../utils/jwtManager';
 import parseJson from '../../../utils/parse';
+import errorMaper from './helpers/errorMaper';
 
 export const create = async (query: any): Promise<any> => {
   try {
     // query -> SHD
-    const data: object = parseJson.formatShd(query);
+    const data: any = parseJson.formatShd(query);
 
-    const respShd: object = {
+    // comment from here to use SHD response data
+    const respShd: any = {
       CabeceraResp: {
         codigoResp: '200',
         severidadResp: 'I',
@@ -31,14 +33,34 @@ export const create = async (query: any): Promise<any> => {
       },
     };
 
-    const token = jwtManager.sign(data);
-    bearerTokenManager.setBearerToken(token);
     const dataDB = parseJson.formatDB(respShd, query);
-    // const resultSHDGet = await http.post('/consultaDoc', data);
-    // return resultSHDGet.data;
-    // Uncoment to use cloudSql, TODO after mappers, http.post and cloudSql have to work together
-    const resultCloudSql = await cloudSql.createQuery(dataDB);
-    return resultCloudSql;
+    const errorCode = String(respShd.CabeceraResp.codigoResp);
+
+    await cloudSql.createQuery(dataDB);
+    const result: any = {
+      data: dataDB,
+      error: errorMaper.mapper(errorCode),
+    };
+    return result;
+
+    // comment to here, if you want to use SHD response data
+
+    // comment from here if you want to use mock data
+    // const token = jwtManager.sign(data);
+    // bearerTokenManager.setBearerToken(token);
+
+    // const respShd = await http.post('/consultaDoc', data);
+
+    // const dataDB = parseJson.formatDB(respShd.data, query);
+    // const errorCode = String(respShd.data.CabeceraResp.codigoResp);
+    // await cloudSql.createQuery(dataDB);
+
+    // const result: any = {
+    //   data: dataDB,
+    //   error: errorMaper.mapper(errorCode),
+    // };
+    // return result;
+    // comment to here if you want to use mock data
   } catch (error) {
     loggin.error(error);
     return error;
