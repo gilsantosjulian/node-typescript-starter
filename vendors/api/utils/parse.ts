@@ -3,8 +3,9 @@
 import * as moment from 'moment';
 import loggin from '../../logger';
 
-const formatShd = (item: any): object => {
+const formatShd = (item: any): any => {
   try {
+    console.log(item.query.value, 'item query');
     const currentDate = moment
       .default()
       .locale('America/Bogota')
@@ -12,19 +13,19 @@ const formatShd = (item: any): object => {
 
     return {
       Cabecera: {
-        idTransaccion: item.idTransaccion,
-        codigoCanal: item.codigoCanal,
-        codigoSucursal: item.codigoSucursal,
-        codigoBanco: item.codigoBanco,
-        entorno: item.entorno,
+        idTransaccion: item.query.tx_id,
+        codigoCanal: item.query.nature,
+        codigoSucursal: item.query.nature,
+        codigoBanco: item.query.nature,
+        entorno: item.query.nature,
         fchPeticion: currentDate,
         idioma: 'es-co',
       },
       CriterioDoc: {
-        nroRefRecaudo: item.nroRefRecaudo,
-        refAdicional: item.refAdicional,
-        valorRecaudar: Number(item.valorRecaudar),
-        codigoEAN: item.subscription,
+        nroRefRecaudo: item.params.invoice_id,
+        refAdicional: item.query.reference,
+        valorRecaudar: Number(item.query.value),
+        codigoEAN: item.query.subscription,
       },
     };
   } catch (error) {
@@ -35,14 +36,15 @@ const formatShd = (item: any): object => {
 
 const formatDB = (dataShd: any, query: any): object => {
   try {
+    console.log(dataShd, 'dataSHD');
     return {
       vendor: query.params.vendor_wallet, // vendor wallet
       invoice: dataShd.Documento.nroRefRecaudo, // nroRefRecaudo
       subscription: dataShd.Documento.codigoEAN, // codigoEAN
       nature: query.query.nature, // codigoCanal
-      processor: query.query.nature, // codigoBanco
-      branch: query.query.nature, // codigoSucursal
-      environment: query.query.nature, // entorno
+      processor: query.query.processor, // codigoBanco
+      branch: query.query.branch, // codigoSucursal
+      environment: query.query.environment, // entorno
       value: dataShd.Documento.valorRecaudar, // valorRecaudar
       txId: dataShd.CabeceraResp.idTransaccionOrigen, // idTransaccion
       sourceDate: query.query.sourceDate, // fchPeticion
