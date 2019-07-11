@@ -40,6 +40,32 @@ router.get(
   },
 );
 
+router.get(
+  '/:vendor_wallet/queries',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const response: any = await controllers.vendorsController.filter(req.query);
+      const params: any = req.query;
+
+      res.status(200).send({
+        entities: response,
+        pagination: {
+          pageSize: params.pageSize,
+          pageNum: params.page,
+          pagesTotal: 45,
+        },
+        error: {
+          code: 0,
+          message: 'Success',
+        },
+      });
+    } catch (error) {
+      logging.error(error);
+      res.status(500).send(error);
+    }
+  },
+);
+
 router.get('/all', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response: object = await controllers.vendorsController.getAll();

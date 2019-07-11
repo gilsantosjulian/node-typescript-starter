@@ -3,7 +3,7 @@ import logging from '../../../logger';
 
 import { createQuery } from './create';
 import QueryEntity from './entity/query';
-import { readOneQuery, readQuery } from './read';
+import { readFilteredQuery, readOneQuery, readQuery } from './read';
 
 const QUERY_TABLE = 'queries';
 
@@ -31,7 +31,6 @@ if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'production') {
 let connection: any = null;
 const connectHoc = async (fn: any, data: any, table: string) => {
   try {
-    console.log(data);
     if (connection === null) {
       connection = await createConnection(connectionConfig);
     }
@@ -45,4 +44,5 @@ export = {
   createQuery: (queryData: object) => connectHoc(createQuery, queryData, QUERY_TABLE),
   readQuery: () => connectHoc(readQuery, {}, QUERY_TABLE),
   readOneQuery: (id: string) => connectHoc(readOneQuery, id, QUERY_TABLE),
+  readFilteredQuery: (filter: any) => connectHoc(readFilteredQuery, filter, QUERY_TABLE),
 };

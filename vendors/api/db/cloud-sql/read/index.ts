@@ -1,6 +1,7 @@
 // import { parseQueryData } from '../utils';
 import loggin = require('../../../../logger');
 import Query from '../entity/query';
+import queryBuilder from './helpers/queryBuilder';
 
 const readQuery = async (connection: any, queryData: object) => {
   try {
@@ -23,4 +24,14 @@ const readOneQuery = async (connection: any, id: string) => {
     return error;
   }
 };
-export { readQuery, readOneQuery };
+
+const readFilteredQuery = async (connection: any, filter: any) => {
+  try {
+    const savedQuerie = await queryBuilder.builder(Query, filter, connection, 'query');
+    return savedQuerie;
+  } catch (error) {
+    loggin.error(error);
+    return { error };
+  }
+};
+export { readQuery, readOneQuery, readFilteredQuery };

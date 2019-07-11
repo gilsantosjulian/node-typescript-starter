@@ -26,7 +26,8 @@
     "vendors"
   ],
   "author": "Julián Andrés Gil Santos",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Damian Fandiño",
       "email": "damian@minka.io"
     },
