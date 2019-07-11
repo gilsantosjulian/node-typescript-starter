@@ -2,15 +2,18 @@ import express, { Request, Response, NextFunction } from 'express';
 import { loadEnvironmentVariables } from './config';
 import routes from './api/routes';
 import logging from './logger';
-
 const config = require('config');
+
+require('@google-cloud/debug-agent').start({
+  allowExpressions: true,
+});
+
 loadEnvironmentVariables();
 
-const PORT = config.PORT;
+const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   const app = express();
-
   app.get('/', routes.rootRoute);
   app.use('/users', routes.usersRoute);
   app.use('/vendors', routes.vendorsRoute);
@@ -22,13 +25,15 @@ async function startServer() {
     res.status(500).send(error.message);
   });
 
-  app.listen(PORT, (err: any) => {
+  app.on('listening', (err: any) => {
     if (err) {
       logging.error(err);
       return;
     }
     logging.info(`🛡️  Server running on port ${PORT} 🛡️`);
   });
+
+  app.listen(PORT);
 }
 
 startServer();
