@@ -23,7 +23,7 @@ steps:
   - kms
   - decrypt
   - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_PRIVATE_KEY}
-  - --plaintext-file=config/private-key.pem
+  - --plaintext-file=dist/config/private-key.pem
   - --location=us-east1
   - --keyring=${_KEYRING}
   - --key=${_KEY}
@@ -33,7 +33,7 @@ steps:
   - kms
   - decrypt
   - --ciphertext-file=config/encrypted-files/${_ENCRYPTED_PUBLIC_KEY}
-  - --plaintext-file=config/public-key.pem
+  - --plaintext-file=dist/config/public-key.pem
   - --location=us-east1
   - --keyring=${_KEYRING}
   - --key=${_KEY}

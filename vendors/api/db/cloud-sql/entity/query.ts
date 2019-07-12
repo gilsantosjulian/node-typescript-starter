@@ -18,7 +18,7 @@ export default class Query {
   public branch: string;
   @Column()
   public environment: string;
-  @Column()
+  @Column({ nullable: true })
   public value: string;
   @Column()
   public txId: string;
@@ -26,7 +26,7 @@ export default class Query {
   public sourceDate: Date;
   @Column()
   public language: string;
-  @Column()
+  @Column({ nullable: true })
   public reference: string;
   @Column()
   public resId: string;
@@ -34,11 +34,11 @@ export default class Query {
   public responseType: string;
   @Column()
   public description: string;
-  @Column()
+  @Column({ nullable: true })
   public expirationDate: Date;
   @Column()
   public invoiceStatus: string;
-  @Column()
+  @Column({ nullable: true })
   public value2: string;
   @Column()
   public labels: string; // check how we can store like a object param
