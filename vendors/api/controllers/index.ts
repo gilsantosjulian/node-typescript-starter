@@ -1,6 +1,8 @@
-"use strict";
-import usersController from "../controllers/users";
+'use strict';
+import usersController from '../controllers/users';
+import vendorsController from '../controllers/vendors';
 
 export = {
-  usersController
+  usersController,
+  vendorsController,
 };
