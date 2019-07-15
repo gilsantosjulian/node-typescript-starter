@@ -20,3 +20,26 @@ export class Query {
   public value2: string; // valorConAporte
   public labels: string; // check how we can store like a object param
 }
+
+export const whereParams = [
+  'id',
+  'vendor',
+  'invoice',
+  'subscription',
+  'nature',
+  'processor',
+  'branch',
+  'environment',
+  'value',
+  'txId',
+  'sourceDate',
+  'language',
+  'reference',
+  'resId',
+  'responseType',
+  'description',
+  'expirationDate',
+  'invoiceStatus',
+  'value2',
+  'labels',
+];

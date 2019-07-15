@@ -27,8 +27,9 @@ const readOneQuery = async (connection: any, id: string) => {
 
 const readFilteredQuery = async (connection: any, filter: any) => {
   try {
-    const savedQuerie = await queryBuilder.builder(Query, filter, connection, 'query');
-    return savedQuerie;
+    const buildedQuery: any = connection.getRepository(Query).createQueryBuilder();
+    const data = await queryBuilder.builder(filter, buildedQuery);
+    return data;
   } catch (error) {
     loggin.error(error);
     return { error };

@@ -1,10 +1,7 @@
-const addFilterString = (
-  filterString: string,
-  element: string,
-  decorator: string,
-  operator: string,
-) => {
-  const queryElement = `${decorator}.${element} = :${element}`;
+import { whereParams } from '../../models/query';
+
+const addWhereValue = (filterString: string, element: string, operator: string) => {
+  const queryElement = `${element} = :${element}`;
   if (filterString.length === 0) {
     return (filterString = queryElement); // TODO validate element on queries get request
   } else {
@@ -12,43 +9,45 @@ const addFilterString = (
   }
 };
 
-const filterByParamsBuilder = (filter: any, savedQuery: any, decorator: string) => {
+const addWhere = (filter: any, buildedQuery: any) => {
   let filterString: string = '';
-
+  const operator: string = 'AND';
   const filterObject: any = {};
-  if (filter.vendor) {
-    filterString =
-      filterString + addFilterString(filterString, 'vendor', decorator, 'OR');
-    filterObject.vendor = filter.vendor;
-    console.log(filterString, filter.vendor, 'filters');
-  }
-  if (filter.invoice) {
-    filterString =
-      filterString + addFilterString(filterString, 'vendor', decorator, 'OR');
-    filterObject.vendor = filter.vendor;
-    console.log(filterString, filter.vendor, 'filters');
-  }
+  Object.keys(filter).forEach(key => {
+    if (whereParams.includes(key)) {
+      // TODO validate fields in a better way, such as page and pageSize ... don't appear as where params
+      filterString = filterString + addWhereValue(filterString, key, operator);
+      filterObject[key] = filter[key];
+    }
+  });
+
   if (filterString.length > 0) {
-    return savedQuery.where(filterString, filterObject);
+    console.log(filterString, 'there were filter params');
+    return buildedQuery.where(filterString, filterObject);
   } else {
-    return savedQuery;
+    console.log("there weren't filter params");
+    return buildedQuery;
   }
 };
 
-const pageBuilder = (page: number, pageSize: number, savedQuery: any) => {
-  return savedQuery.skip(pageSize * (page - 1)).take(pageSize);
+const addPaginator = (filter: any, buildedQuery: any) => {
+  return buildedQuery.skip(filter.pageSize * (filter.page - 1)).take(filter.pageSize);
 };
 
-const builder = async (Query: any, filter: any, connection: any, decorator: string) => {
-  const queryRepository = connection.getRepository(Query);
-  let savedQuerie: any = queryRepository.createQueryBuilder(decorator);
-  savedQuerie = filterByParamsBuilder(filter, savedQuerie, decorator);
+const addOrderBy = (filter: any, buildedQuery: any) => {
+  console.log(filter);
+};
+
+const builder = async (filter: any, buildedQuery: any) => {
+  buildedQuery = addWhere(filter, buildedQuery);
 
   if (filter.page && filter.pageSize) {
-    savedQuerie = pageBuilder(filter.page, filter.pageSize, savedQuerie);
+    buildedQuery = addPaginator(filter, buildedQuery);
   }
 
-  return savedQuerie.getMany();
+  addOrderBy(filter, buildedQuery);
+
+  return buildedQuery.getMany();
 };
 
 export = {
