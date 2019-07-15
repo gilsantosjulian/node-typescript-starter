@@ -1,5 +1,3 @@
-import { whereParams } from '../../models/query';
-
 const addWhereValue = (filterString: string, element: string, operator: string) => {
   const queryElement = `${element} = :${element}`;
   if (filterString.length === 0) {
@@ -14,18 +12,15 @@ const addWhere = (filter: any, buildedQuery: any) => {
   const operator: string = 'AND';
   const filterObject: any = {};
   Object.keys(filter).forEach(key => {
-    if (whereParams.includes(key)) {
-      // TODO validate fields in a better way, such as page and pageSize ... don't appear as where params
+    if (filter[key].eq) {
       filterString = filterString + addWhereValue(filterString, key, operator);
-      filterObject[key] = filter[key];
+      filterObject[key] = filter[key].eq;
     }
   });
 
   if (filterString.length > 0) {
-    console.log(filterString, 'there were filter params');
     return buildedQuery.where(filterString, filterObject);
   } else {
-    console.log("there weren't filter params");
     return buildedQuery;
   }
 };
@@ -39,7 +34,11 @@ const addOrderBy = (filter: any, buildedQuery: any) => {
 };
 
 const builder = async (filter: any, buildedQuery: any) => {
-  buildedQuery = addWhere(filter, buildedQuery);
+  const whereFilter = filter;
+  delete whereFilter.page;
+  delete whereFilter.pageSize;
+
+  buildedQuery = addWhere(whereFilter, buildedQuery);
 
   if (filter.page && filter.pageSize) {
     buildedQuery = addPaginator(filter, buildedQuery);
