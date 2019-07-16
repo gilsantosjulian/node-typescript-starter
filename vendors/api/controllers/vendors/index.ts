@@ -1,12 +1,10 @@
 'use strict';
-import { filter } from './get/filter';
-import { getAll } from './get/getAll';
 import { getOne } from './get/getOne';
+import { getAll } from './get/getVendors';
 import { create } from './post/create';
 
 export = {
   getAll,
   getOne,
-  filter,
   create,
 };

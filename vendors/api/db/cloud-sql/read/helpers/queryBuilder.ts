@@ -36,7 +36,7 @@ const addPaginator = (filter: any, buildedQuery: any) => {
   return buildedQuery.skip(filter.pageSize * (filter.page - 1)).take(filter.pageSize);
 };
 
-const addOrderBy = (filter: any, buildedQuery: any) => {
+const addInRange = (filter: any, buildedQuery: any) => {
   Object.keys(filter).forEach(key => {
     if (filter[key].lt && filter[key].gt) {
       buildedQuery = addOperator(buildedQuery, key, 'between', {
@@ -53,15 +53,21 @@ const addOrderBy = (filter: any, buildedQuery: any) => {
 };
 
 const builder = async (filter: any, buildedQuery: any) => {
-  const noPagingFilter = filter;
-  delete noPagingFilter.page;
-  delete noPagingFilter.pageSize;
+  buildedQuery = addWhere(filter, buildedQuery);
 
-  buildedQuery = addWhere(noPagingFilter, buildedQuery);
-
-  buildedQuery = addOrderBy(filter, buildedQuery);
+  buildedQuery = addInRange(filter, buildedQuery);
 
   if (filter.page && filter.pageSize) {
+    buildedQuery = addPaginator(filter, buildedQuery);
+  } else if (filter.page) {
+    filter.pageSize = 20;
+    buildedQuery = addPaginator(filter, buildedQuery);
+  } else if (filter.pageSize) {
+    filter.page = 1;
+    buildedQuery = addPaginator(filter, buildedQuery);
+  } else {
+    filter.pageSize = 20;
+    filter.page = 1;
     buildedQuery = addPaginator(filter, buildedQuery);
   }
 

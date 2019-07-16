@@ -3,7 +3,7 @@ import logging from '../../../logger';
 
 import { createQuery } from './create';
 import QueryEntity from './entity/query';
-import { readFilteredQuery, readOneQuery, readQuery } from './read';
+import { readOneQuery, readQuery } from './read';
 
 const QUERY_TABLE = 'queries';
 
@@ -42,7 +42,6 @@ const connectHoc = async (fn: any, data: any, table: string) => {
 
 export = {
   createQuery: (queryData: object) => connectHoc(createQuery, queryData, QUERY_TABLE),
-  readQuery: () => connectHoc(readQuery, {}, QUERY_TABLE),
+  readQuery: (filter: any) => connectHoc(readQuery, filter, QUERY_TABLE),
   readOneQuery: (id: string) => connectHoc(readOneQuery, id, QUERY_TABLE),
-  readFilteredQuery: (filter: any) => connectHoc(readFilteredQuery, filter, QUERY_TABLE),
 };

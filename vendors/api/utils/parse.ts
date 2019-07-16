@@ -5,7 +5,6 @@ import loggin from '../../logger';
 
 const formatShd = (item: any): any => {
   try {
-    console.log(item.query.value, 'item query');
     const currentDate = moment
       .default()
       .locale('America/Bogota')
@@ -36,7 +35,6 @@ const formatShd = (item: any): any => {
 
 const formatDB = (dataShd: any, query: any): object => {
   try {
-    console.log(dataShd, 'dataSHD');
     return {
       vendor: query.params.vendor_wallet, // vendor wallet
       invoice: dataShd.Documento.nroRefRecaudo, // nroRefRecaudo
