@@ -55,11 +55,11 @@ router.get(
         });
       } else {
         res.status(200).send({
-          entities: response,
+          entities: response.data,
           pagination: {
-            pageSize: params.pageSize,
-            pageNum: params.page,
-            pagesTotal: 45,
+            pageSize: parseInt(params.pageSize),
+            pageNum: parseInt(params.page),
+            pagesTotal: response.pagesTotal,
           },
           error: {
             code: 0,

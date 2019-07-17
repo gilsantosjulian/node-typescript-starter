@@ -52,26 +52,30 @@ const addInRange = (filter: any, buildedQuery: any) => {
   return buildedQuery;
 };
 
+const addSelect = (filter: any, buildedQuery: any) => {
+  const filterParams: String[] = filter.select.split(',');
+
+  filterParams.forEach((item, index) => {
+    filterParams[index] = `entity.${item}`;
+  });
+
+  buildedQuery.select(filterParams);
+
+  return buildedQuery;
+};
+
 const builder = async (filter: any, buildedQuery: any) => {
+  if (filter.select) {
+    buildedQuery = addSelect(filter, buildedQuery);
+  }
+
   buildedQuery = addWhere(filter, buildedQuery);
 
   buildedQuery = addInRange(filter, buildedQuery);
 
-  if (filter.page && filter.pageSize) {
-    buildedQuery = addPaginator(filter, buildedQuery);
-  } else if (filter.page) {
-    filter.pageSize = 20;
-    buildedQuery = addPaginator(filter, buildedQuery);
-  } else if (filter.pageSize) {
-    filter.page = 1;
-    buildedQuery = addPaginator(filter, buildedQuery);
-  } else {
-    filter.pageSize = 20;
-    filter.page = 1;
-    buildedQuery = addPaginator(filter, buildedQuery);
-  }
+  buildedQuery = addPaginator(filter, buildedQuery);
 
-  return buildedQuery.getMany();
+  return buildedQuery.getManyAndCount();
 };
 
 export = {
