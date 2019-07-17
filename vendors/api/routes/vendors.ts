@@ -44,14 +44,14 @@ router.get(
   '/:vendor_wallet/queries',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const response: any = await controllers.vendorsController.getAll(req.query);
-      const params: any = req.query;
+      const response: any = await controllers.vendorsController.getList(req.query); // TODO generate models and use instead of 'any'
+      const params: any = req.query; // TODO generate models and use instead of 'any'
       if (response.error) {
         res.status(404).send({
           code: 404,
           status: 'Invalid request format',
           message: 'Request is not formatted correctly.',
-          data: '',
+          data: [],
         });
       } else {
         res.status(200).send({
@@ -79,7 +79,7 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id;
-      const response: any = await controllers.vendorsController.getOne(id);
+      const response: any = await controllers.vendorsController.getById(id); // TODO generate models and use instead of 'any'
 
       res.status(200).send({
         entities: response ? response : null,
@@ -89,6 +89,7 @@ router.get(
         },
       });
     } catch (error) {
+      logging.error(error);
       res.status(500).send(error);
     }
   },

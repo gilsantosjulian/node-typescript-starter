@@ -2,7 +2,7 @@
 import loggin from '../../../../logger';
 import cloudSql from '../../../db/cloud-sql';
 
-export const getAll = async (queryParams: any) => {
+export const getList = async (queryParams: any) => {
   try {
     if (!queryParams.page || !queryParams.pageSize) {
       if (queryParams.page) {
@@ -20,6 +20,16 @@ export const getAll = async (queryParams: any) => {
       data: queryResult[0],
       pagesTotal: Math.ceil(queryResult[1] / queryParams.pageSize),
     };
+  } catch (error) {
+    loggin.error(error);
+    return error;
+  }
+};
+
+export const getById = async (id: string): Promise<any> => {
+  try {
+    const result = await cloudSql.readOneQuery(id);
+    return result;
   } catch (error) {
     loggin.error(error);
     return error;

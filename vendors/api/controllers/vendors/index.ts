@@ -1,10 +1,9 @@
 'use strict';
-import { getOne } from './get/getOne';
-import { getAll } from './get/getVendors';
+import { getById, getList } from './get/invoice';
 import { create } from './post/create';
 
 export = {
-  getAll,
-  getOne,
+  getList,
+  getById,
   create,
 };
