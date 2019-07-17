@@ -70,12 +70,9 @@ const builder = async (filter: any, buildedQuery: any) => {
   }
 
   buildedQuery = addWhere(filter, buildedQuery);
-
   buildedQuery = addInRange(filter, buildedQuery);
-
   buildedQuery = addPaginator(filter, buildedQuery);
-
-  return buildedQuery.getManyAndCount();
+  return await buildedQuery.getManyAndCount();
 };
 
 export = {
