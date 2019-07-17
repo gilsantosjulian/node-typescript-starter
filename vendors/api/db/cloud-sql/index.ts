@@ -31,7 +31,6 @@ if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'production') {
 let connection: any = null;
 const connectHoc = async (fn: any, data: any, table: string) => {
   try {
-    console.log(data);
     if (connection === null) {
       connection = await createConnection(connectionConfig);
     }
@@ -43,6 +42,6 @@ const connectHoc = async (fn: any, data: any, table: string) => {
 
 export = {
   createQuery: (queryData: object) => connectHoc(createQuery, queryData, QUERY_TABLE),
-  readQuery: () => connectHoc(readQuery, {}, QUERY_TABLE),
+  readQuery: (filter: any) => connectHoc(readQuery, filter, QUERY_TABLE),
   readOneQuery: (id: string) => connectHoc(readOneQuery, id, QUERY_TABLE),
 };
