@@ -1,5 +1,4 @@
 const splitParamsByComa = (filter: any) => {
-  console.log(filter);
   const filterParams: String[] = filter.split(',');
   filterParams.forEach((item, index) => {
     filterParams[index] = `entity.${item}`;
@@ -27,15 +26,12 @@ const sanitizeFilter = (filter: any) => {
 const addOperator = (buildedQuery: any, key: string, operator: string, value: any) => {
   const operatorParser: any = {
     eq: '=',
-    lt: '<',
-    gt: '>',
-    gte: '>=',
-    lte: '<=',
+    lt: '<=',
+    gt: '>=',
   };
   const queryVariables: any = {};
   if (operator != 'between') {
     queryVariables[key] = value;
-    console.log(`${key} ${operatorParser[operator]} :${key}`);
     return buildedQuery.andWhere(
       `${key} ${operatorParser[operator]} :${key}`,
       queryVariables,
@@ -44,7 +40,7 @@ const addOperator = (buildedQuery: any, key: string, operator: string, value: an
     queryVariables[`${key}1`] = value.lt;
     queryVariables[`${key}2`] = value.gt;
     return buildedQuery.andWhere(
-      `${key} < :${key}1 AND ${key} > :${key}2`,
+      `${key} < :${key}1 AND ${key} >= :${key}2`,
       queryVariables,
     );
   }
@@ -80,9 +76,7 @@ const addInRange = (filter: any, buildedQuery: any) => {
 };
 
 const addSelect = (filter: any, buildedQuery: any) => {
-  console.log(filter.select, 'the filter');
   const filterParams: String[] = splitParamsByComa(filter.select);
-  console.log(filterParams);
 
   buildedQuery.select(filterParams);
 
@@ -113,7 +107,6 @@ const builder = async (filter: any, buildedQuery: any) => {
   const sanitizedFilter: any = copyJSON(filter);
   sanitizeFilter(sanitizedFilter);
 
-  console.log(sanitizedFilter);
   if (filter.select) {
     buildedQuery = addSelect(filter, buildedQuery);
   }

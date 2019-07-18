@@ -42,4 +42,8 @@ export default class Query {
   public value2: string;
   @Column()
   public labels: string; // check how we can store like a object param
+  @Column()
+  public created: Date;
+  @Column()
+  public updated: Date;
 }
