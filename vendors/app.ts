@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import { loadEnvironmentVariables } from './config';
 import routes from './api/routes';
 import logging from './logger';
-const config = require('config');
 
 require('@google-cloud/debug-agent').start({
   allowExpressions: true,

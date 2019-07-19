@@ -5,12 +5,10 @@ import { createQuery } from './create';
 import QueryEntity from './entity/query';
 import { readOneQuery, readQuery } from './read';
 
-const QUERY_TABLE = 'queries';
+const QUERY_TABLE = 'query';
 
 const connectionConfig: any = {
   type: 'mysql',
-  host: process.env.MYSQL_HOST,
-  port: '3306',
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
@@ -19,13 +17,12 @@ const connectionConfig: any = {
   entities: [QueryEntity],
 };
 
-const { NODE_ENV, MINKA_ENV } = process.env;
-if (NODE_ENV === MINKA_ENV && NODE_ENV !== 'production') {
-  connectionConfig.host = process.env.MYSQL_HOST;
+if (process.env.NODE_ENV === 'development') {
+  connectionConfig.host = process.env.MYSQL_HOST; // FTP connection
 } else {
-  // connectionConfig.extra = {
-  //   socketPath: `/cloudsql/${config.INSTANCE_CONNECTION_NAME)}`,
-  // };
+  connectionConfig.extra = {
+    socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`, // Sockets connection
+  };
 }
 
 let connection: any = null;
