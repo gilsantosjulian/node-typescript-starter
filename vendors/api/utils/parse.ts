@@ -35,6 +35,11 @@ const formatShd = (item: any): any => {
 
 const formatDB = (dataShd: any, query: any): object => {
   try {
+    const currentDate = moment
+      .utc()
+      .locale('America/Bogota')
+      .format('YYYY-MM-DD HH:mm:ss');
+
     return {
       vendor: query.params.vendor_wallet, // vendor wallet
       invoice: dataShd.Documento.nroRefRecaudo, // nroRefRecaudo
@@ -55,6 +60,8 @@ const formatDB = (dataShd: any, query: any): object => {
       invoiceStatus: dataShd.Documento.estadoDoc, // estadoDoc
       value2: dataShd.Documento.valorConAporte, // valorConAporte
       labels: 'object',
+      created: currentDate,
+      updated: currentDate,
     };
   } catch (error) {
     loggin.error(error);

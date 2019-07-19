@@ -26,7 +26,7 @@ export const create = async (query: any): Promise<any> => {
         nroRefRecaudo: '1234784901',
         codigoEAN: '6676532982721',
         refAdicional: 'NA',
-        valorRecaudar: '300000',
+        valorRecaudar: '200000',
         fchVencimiento: '2018-08-22',
         estadoDoc: 'Disponible',
         valorConAporte: '315000',

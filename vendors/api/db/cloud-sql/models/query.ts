@@ -19,4 +19,6 @@ export class Query {
   public invoiceStatus: string; // estadoDoc
   public value2: string; // valorConAporte
   public labels: string; // check how we can store like a object param
+  public created: Date;
+  public updated: Date;
 }
