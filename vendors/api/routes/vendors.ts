@@ -3,8 +3,7 @@ import express, { NextFunction, Request, Response, Router } from 'express';
 import { validationResult } from 'express-validator';
 import logging from '../../logger';
 import controllers from '../controllers';
-import dataCheck from '../utils/dataCheck';
-
+import { queriesValidator, vendorsValidator } from '../middlewares/index';
 const router: Router = express.Router();
 
 router.use(logging.requestLogger);
@@ -12,7 +11,7 @@ router.use(logging.errorLogger);
 
 router.get(
   '/:vendor_wallet/invoice/:invoice_id',
-  dataCheck.vendors,
+  vendorsValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const err = validationResult(req);
@@ -42,18 +41,20 @@ router.get(
 
 router.get(
   '/:vendor_wallet/queries',
+  queriesValidator,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const response: any = await controllers.vendorsController.getList(req.query); // TODO generate models and use instead of 'any'
-      const params: any = req.query; // TODO generate models and use instead of 'any'
-      if (response.error) {
+      const err = validationResult(req);
+      if (!err.isEmpty()) {
         res.status(404).send({
           code: 404,
           status: 'Invalid request format',
           message: 'Request is not formatted correctly.',
-          data: [],
+          data: err.mapped(),
         });
       } else {
+        const response: any = await controllers.vendorsController.getList(req.query); // TODO generate models and use instead of 'any'
+        const params: any = req.query; // TODO generate models and use instead of 'any'
         res.status(200).send({
           entities: response.data,
           pagination: {

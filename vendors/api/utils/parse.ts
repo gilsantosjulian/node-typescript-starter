@@ -6,7 +6,7 @@ import loggin from '../../logger';
 const formatShd = (item: any): any => {
   try {
     const currentDate = moment
-      .default()
+      .utc()
       .locale('America/Bogota')
       .format('YYYY-MM-DD HH:mm:ss');
 
