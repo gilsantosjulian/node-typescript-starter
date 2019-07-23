@@ -69,7 +69,7 @@ const formatDB = (dataShd: any, query: any): object => {
   }
 };
 
-const formatQuery = (query: any): object => {
+const formatQuery = (query: any): any => {
   return {
     data: {
       vendor: query.vendor ? query.vendor : null,

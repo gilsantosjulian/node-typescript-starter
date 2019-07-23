@@ -14,7 +14,7 @@ export const getList = async (queryParams: any) => {
         queryParams.pageSize = 20;
         queryParams.page = 1;
       }
-    } // TODO generate a validator helper, by now, it's needed here to show pagesTotal
+    }
     const reqQueryFilters = parse.formatQuery(queryParams);
     const queryResult = await cloudSql.readQuery(reqQueryFilters);
     return {

@@ -8,6 +8,9 @@ export const messages = (param: string, length?: number) => {
     isAlphanumeric: `${param} should be a alpha-numeric`,
     invalidDate: 'Invalid date format',
     invalidLanguage: 'Invalid language format',
+    invalidSelect: 'Invalid select format',
+    invalidGroupBy: 'Invalid groupBy format',
+    invalidParams: 'Invalid params',
   };
   return message;
 };

@@ -69,7 +69,6 @@ const addSelect = (filter: any, buildedQuery: any) => {
 const addOrderBy = (filter: any, buildedQuery: any) => {
   Object.keys(filter).forEach(key => {
     if (filter[key] && filter[key].sort) {
-      console.log(filter[key].sort, 'thefilters sort');
       const sortDirection = filter[key].sort;
       buildedQuery.addOrderBy(`entity.${key}`, sortDirection);
     }
@@ -88,7 +87,6 @@ const addGroupBy = (filter: any, buildedQuery: any) => {
 };
 
 const builder = async (filter: any, buildedQuery: any) => {
-  console.log(filter.filters);
   if (filter.filters.select) {
     buildedQuery = addSelect(filter.filters, buildedQuery);
   }

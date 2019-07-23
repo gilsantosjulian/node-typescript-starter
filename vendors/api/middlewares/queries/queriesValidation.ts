@@ -1,5 +1,5 @@
 import { oneOf, param, query } from 'express-validator';
-import { validateOperators } from './schemas/validateOperators';
+import { validateOperators, validateQueryFilters } from './schemas/validateOperators';
 import { messages } from './validatorMessages';
 
 export const queries: any = [
@@ -13,6 +13,9 @@ export const queries: any = [
       .withMessage(messages('value').isIn),
     query('value')
       .optional()
+      .not()
+      .isEmpty()
+      .withMessage(messages('value').isEmpty)
       .isLength({ max: 17 })
       .withMessage(messages('value', 17).isLength)
       .isNumeric()
@@ -25,6 +28,9 @@ export const queries: any = [
       .withMessage(messages('invoice').isNumeric),
     query('invoice')
       .optional()
+      .not()
+      .isEmpty()
+      .withMessage(messages('invoice').isEmpty)
       .isLength({ max: 11 })
       .withMessage(messages('invoice', 11).isLength)
       .isNumeric()
@@ -138,4 +144,44 @@ export const queries: any = [
       .isISO8601()
       .withMessage(messages('updated').invalidDate),
   ]),
+  query('page')
+    .optional()
+    .not()
+    .isEmpty()
+    .withMessage(messages('page').isEmpty)
+    .isLength({ max: 11 })
+    .withMessage(messages('page', 100).isLength)
+    .isNumeric()
+    .withMessage(messages('page').isNumeric),
+  query('pageSize')
+    .optional()
+    .not()
+    .isEmpty()
+    .withMessage(messages('pageSize').isEmpty)
+    .isLength({ max: 11 })
+    .withMessage(messages('pageSize', 100).isLength)
+    .isNumeric()
+    .withMessage(messages('pageSize').isNumeric),
+  query('select')
+    .optional()
+    .not()
+    .isEmpty()
+    .withMessage(messages('select').isEmpty)
+    .isLength({ max: 300 })
+    .withMessage(messages('select', 100).isLength)
+    .matches(/^[a-zA-Z]*(,[a-zA-Z]+)*$/)
+    .withMessage(messages('select').invalidSelect)
+    .custom(val => validateQueryFilters(val))
+    .withMessage(messages('select').invalidParams),
+  query('groupBy')
+    .optional()
+    .not()
+    .isEmpty()
+    .withMessage(messages('groupBy').isEmpty)
+    .isLength({ max: 300 })
+    .withMessage(messages('gruopBy', 100).isLength)
+    .matches(/^[a-zA-Z]*(,[a-zA-Z]+)*$/)
+    .withMessage(messages('groupBy').invalidGroupBy)
+    .custom(val => validateQueryFilters(val))
+    .withMessage(messages('groupBy').invalidParams),
 ];

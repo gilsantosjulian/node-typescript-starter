@@ -54,12 +54,11 @@ router.get(
         });
       } else {
         const response: any = await controllers.vendorsController.getList(req.query); // TODO generate models and use instead of 'any'
-        const params: any = req.query; // TODO generate models and use instead of 'any'
         res.status(200).send({
           entities: response.data,
           pagination: {
-            pageSize: parseInt(params.pageSize),
-            pageNum: parseInt(params.page),
+            pageSize: parseInt(req.query.pageSize),
+            pageNum: parseInt(req.query.page),
             pagesTotal: response.pagesTotal,
           },
           error: {
