@@ -6,23 +6,6 @@ const splitParamsByComa = (filter: any) => {
   return filterParams;
 };
 
-const copyJSON = (json: any) => {
-  const newJson: any = {};
-  Object.keys(json).forEach(key => {
-    newJson[key] = json[key];
-  });
-  return newJson;
-};
-
-const sanitizeFilter = (filter: any) => {
-  delete filter.select;
-  delete filter.page;
-  delete filter.groupBy;
-  delete filter.pageSize;
-};
-
-// TODO validations and helpers has to be in controller, utils or helper: they are here in order to make filter works
-
 const addOperator = (buildedQuery: any, key: string, operator: string, value: any) => {
   const operatorParser: any = {
     eq: '=',
@@ -40,7 +23,7 @@ const addOperator = (buildedQuery: any, key: string, operator: string, value: an
     queryVariables[`${key}1`] = value.lt;
     queryVariables[`${key}2`] = value.gt;
     return buildedQuery.andWhere(
-      `${key} < :${key}1 AND ${key} >= :${key}2`,
+      `${Number(key)} < :${key}1 AND ${key} >= :${key}2`,
       queryVariables,
     );
   }
@@ -48,7 +31,7 @@ const addOperator = (buildedQuery: any, key: string, operator: string, value: an
 
 const addWhere = (filter: any, buildedQuery: any) => {
   Object.keys(filter).forEach(key => {
-    if (!filter[key].lt && !filter[key].gt && !filter[key].sort) {
+    if (filter[key] && !filter[key].lt && !filter[key].gt && !filter[key].sort) {
       buildedQuery = addOperator(buildedQuery, key, 'eq', filter[key]);
     }
   });
@@ -61,14 +44,14 @@ const addPaginator = (filter: any, buildedQuery: any) => {
 
 const addInRange = (filter: any, buildedQuery: any) => {
   Object.keys(filter).forEach(key => {
-    if (filter[key].lt && filter[key].gt) {
+    if (filter[key] && filter[key].lt && filter[key].gt) {
       buildedQuery = addOperator(buildedQuery, key, 'between', {
         lt: filter[key].lt,
         gt: filter[key].gt,
       });
-    } else if (filter[key].lt) {
+    } else if (filter[key] && filter[key].lt) {
       buildedQuery = addOperator(buildedQuery, key, 'lt', filter[key].lt);
-    } else if (filter[key].gt) {
+    } else if (filter[key] && filter[key].gt) {
       buildedQuery = addOperator(buildedQuery, key, 'gt', filter[key].gt);
     }
   });
@@ -85,7 +68,8 @@ const addSelect = (filter: any, buildedQuery: any) => {
 
 const addOrderBy = (filter: any, buildedQuery: any) => {
   Object.keys(filter).forEach(key => {
-    if (filter[key].sort) {
+    if (filter[key] && filter[key].sort) {
+      console.log(filter[key].sort, 'thefilters sort');
       const sortDirection = filter[key].sort;
       buildedQuery.addOrderBy(`entity.${key}`, sortDirection);
     }
@@ -104,19 +88,17 @@ const addGroupBy = (filter: any, buildedQuery: any) => {
 };
 
 const builder = async (filter: any, buildedQuery: any) => {
-  const sanitizedFilter: any = copyJSON(filter);
-  sanitizeFilter(sanitizedFilter);
-
-  if (filter.select) {
-    buildedQuery = addSelect(filter, buildedQuery);
+  console.log(filter.filters);
+  if (filter.filters.select) {
+    buildedQuery = addSelect(filter.filters, buildedQuery);
   }
-  buildedQuery = addWhere(sanitizedFilter, buildedQuery);
-  buildedQuery = addInRange(filter, buildedQuery);
-  buildedQuery = addOrderBy(filter, buildedQuery);
-  if (filter.groupBy) {
-    buildedQuery = addGroupBy(filter, buildedQuery);
+  buildedQuery = addWhere(filter.data, buildedQuery);
+  buildedQuery = addInRange(filter.data, buildedQuery);
+  buildedQuery = addOrderBy(filter.data, buildedQuery);
+  if (filter.filters.groupBy) {
+    buildedQuery = addGroupBy(filter.filters, buildedQuery);
   }
-  buildedQuery = addPaginator(filter, buildedQuery);
+  buildedQuery = addPaginator(filter.filters, buildedQuery);
   return await buildedQuery.getManyAndCount();
 };
 
