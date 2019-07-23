@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response, Router } from 'express';
 import { validationResult } from 'express-validator';
 import logging from '../../logger';
 import controllers from '../controllers';
-import { queriesValidator, vendorsValidator } from '../middlewares/index';
+import { byIdValidator, queriesValidator, vendorsValidator } from '../middlewares/index';
 const router: Router = express.Router();
 
 router.use(logging.requestLogger);
@@ -76,21 +76,32 @@ router.get(
 
 router.get(
   '/:vendor_wallet/queries/:id',
+  byIdValidator,
   async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id;
-      const response: any = await controllers.vendorsController.getById(id); // TODO generate models and use instead of 'any'
-
-      res.status(200).send({
-        entities: response ? response : null,
-        error: {
-          code: 0,
-          message: 'Success',
-        },
+    const err = validationResult(req);
+    if (!err.isEmpty()) {
+      res.status(404).send({
+        code: 404,
+        status: 'Invalid request format',
+        message: 'Request is not formatted correctly.',
+        data: err.mapped(),
       });
-    } catch (error) {
-      logging.error(error);
-      res.status(500).send(error);
+    } else {
+      try {
+        const id = req.params.id;
+        const response: any = await controllers.vendorsController.getById(id); // TODO generate models and use instead of 'any'
+
+        res.status(200).send({
+          entities: response ? response : null,
+          error: {
+            code: 0,
+            message: 'Success',
+          },
+        });
+      } catch (error) {
+        logging.error(error);
+        res.status(500).send(error);
+      }
     }
   },
 );
