@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import { loadEnvironmentVariables } from './config';
 import routes from './api/routes';
 import logging from './logger';
+import bodyParser from 'body-parser';
 
 require('@google-cloud/debug-agent').start({
   allowExpressions: true,
@@ -13,6 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   const app = express();
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+
   app.get('/', routes.rootRoute);
   app.use('/users', routes.usersRoute);
   app.use('/vendors', routes.vendorsRoute);
