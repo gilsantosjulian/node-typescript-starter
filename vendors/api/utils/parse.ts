@@ -6,7 +6,7 @@ import loggin from '../../logger';
 const formatShd = (item: any): any => {
   try {
     const currentDate = moment
-      .default()
+      .utc()
       .locale('America/Bogota')
       .format('YYYY-MM-DD HH:mm:ss');
 
@@ -69,7 +69,42 @@ const formatDB = (dataShd: any, query: any): object => {
   }
 };
 
+const formatQuery = (query: any): any => {
+  return {
+    data: {
+      vendor: query.vendor ? query.vendor : null,
+      invoice: query.invoice ? query.invoice : null,
+      subscription: query.subscription ? query.subscription : null,
+      nature: query.nature ? query.nature : null,
+      processor: query.processor ? query.processor : null,
+      branch: query.branch ? query.branch : null,
+      environment: query.environment ? query.environment : null,
+      value: query.value ? query.value : null,
+      txId: query.txId ? query.txId : null,
+      sourceDate: query.sourceDate ? query.sourceDate : null,
+      language: query.language ? query.language : null,
+      reference: query.reference ? query.reference : null,
+      resId: query.resId ? query.resId : null,
+      responseType: query.responseType ? query.responseType : null,
+      description: query.description ? query.description : null,
+      expirationDate: query.expirationDate ? query.expirationDate : null,
+      invoiceStatus: query.invoiceStatus ? query.invoiceStatus : null,
+      value2: query.value2 ? query.value2 : null,
+      labels: query.labels ? query.labels : null,
+      created: query.created ? query.created : null,
+      updated: query.updated ? query.updated : null,
+    },
+    filters: {
+      select: query.select ? query.select : null,
+      page: query.page ? query.page : null,
+      groupBy: query.groupBy ? query.groupBy : null,
+      pageSize: query.pageSize ? query.pageSize : null,
+    },
+  };
+};
+
 export = {
   formatShd,
   formatDB,
+  formatQuery,
 };

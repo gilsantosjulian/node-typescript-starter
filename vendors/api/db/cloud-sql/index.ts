@@ -17,7 +17,7 @@ const connectionConfig: any = {
   entities: [QueryEntity],
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'development') {
   connectionConfig.host = process.env.MYSQL_HOST; // FTP connection
 } else {
   connectionConfig.extra = {
