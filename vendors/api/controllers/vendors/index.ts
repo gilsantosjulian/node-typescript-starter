@@ -1,9 +1,11 @@
 'use strict';
-import { getById, getList } from './get/invoice';
-import { create } from './post/create';
+import { send } from './resources/invoices/post/send';
+import { getById, getList } from './resources/queries/get/invoice';
+import { create } from './resources/queries/post/create';
 
 export = {
   getList,
   getById,
   create,
+  send,
 };

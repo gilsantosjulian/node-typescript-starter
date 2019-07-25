@@ -1,4 +1,8 @@
 {
-  "URL_BASE": "https://shd-tst.minka.io/v1",
-  "PORT": "4000"
+  "URL_BASE": "",
+  "rabbit": {
+    "HOST": "35.227.48.119",
+    "PORT": "3000",
+    "PROTOCOL": "http"
+  }
 }

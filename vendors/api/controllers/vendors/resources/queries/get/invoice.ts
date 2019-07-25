@@ -1,7 +1,7 @@
 'use strict';
-import loggin from '../../../../logger';
-import cloudSql from '../../../db/cloud-sql';
-import parse from '../../../utils/parse';
+import loggin from '../../../../../../logger';
+import cloudSql from '../../../../../db/cloud-sql';
+import parse from '../../../../../utils/parse';
 
 export const getList = async (queryParams: any) => {
   try {
