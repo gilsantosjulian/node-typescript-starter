@@ -103,8 +103,39 @@ const formatQuery = (query: any): any => {
   };
 };
 
+const formatPayment = (req: any) => {
+  return {
+    expiration: 12653412,
+    deliveryMode: 2,
+    headers: {
+      JMSMessageID: 1324,
+      JMSPriority: 'Normal',
+      JMSTimeStamp: 231231,
+      JMSCorrelationID: 1264,
+    },
+    payload: {
+      Cabecera: {
+        idTransaccion: req.labels.tx_id,
+        codigoCanal: req.labels.nature,
+        codigoSucursal: req.labels.branch,
+        codigoBanco: req.labels.processor,
+        entorno: req.labels.environment,
+        fchPeticion: req.labels.sourceDate,
+        idioma: req.labels.language,
+      },
+      CriterioDoc: {
+        nroRefRecaudo: req.labels.invoice,
+        refAdicional: req.labels.reference,
+        valorRecaudar: req.labels.value,
+        codigoEAN: req.labels.subscription,
+      },
+    },
+  };
+};
+
 export = {
   formatShd,
   formatDB,
   formatQuery,
+  formatPayment,
 };
