@@ -1,11 +1,11 @@
 'use strict';
-import loggin from '../../../../logger';
-import cloudSql from '../../../db/cloud-sql';
-import bearerTokenManager from '../../../utils/bearerTokenManager';
-import http from '../../../utils/http';
-import jwtManager from '../../../utils/jwtManager';
-import parseJson from '../../../utils/parse';
-import errorMaper from './helpers/errorMaper';
+import loggin from '../../../../../../logger';
+import cloudSql from '../../../../../db/cloud-sql';
+import bearerTokenManager from '../../../../../utils/bearerTokenManager';
+import http from '../../../../../utils/http';
+import jwtManager from '../../../../../utils/jwtManager';
+import parseJson from '../../../../../utils/parse';
+import errorMaper from './utils/errorMaper';
 
 export const create = async (query: any): Promise<any> => {
   try {
@@ -26,10 +26,10 @@ export const create = async (query: any): Promise<any> => {
         nroRefRecaudo: '1234784901',
         codigoEAN: '6676532982721',
         refAdicional: 'NA',
-        valorRecaudar: '300000',
+        valorRecaudar: query.query.value,
         fchVencimiento: '2018-08-22',
         estadoDoc: 'Disponible',
-        valorConAporte: '315000',
+        valorConAporte: query.query.value,
       },
     };
 

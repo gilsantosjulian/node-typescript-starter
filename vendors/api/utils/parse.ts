@@ -5,9 +5,8 @@ import loggin from '../../logger';
 
 const formatShd = (item: any): any => {
   try {
-    console.log(item.query.value, 'item query');
     const currentDate = moment
-      .default()
+      .utc()
       .locale('America/Bogota')
       .format('YYYY-MM-DD HH:mm:ss');
 
@@ -36,7 +35,11 @@ const formatShd = (item: any): any => {
 
 const formatDB = (dataShd: any, query: any): object => {
   try {
-    console.log(dataShd, 'dataSHD');
+    const currentDate = moment
+      .utc()
+      .locale('America/Bogota')
+      .format('YYYY-MM-DD HH:mm:ss');
+
     return {
       vendor: query.params.vendor_wallet, // vendor wallet
       invoice: dataShd.Documento.nroRefRecaudo, // nroRefRecaudo
@@ -57,6 +60,8 @@ const formatDB = (dataShd: any, query: any): object => {
       invoiceStatus: dataShd.Documento.estadoDoc, // estadoDoc
       value2: dataShd.Documento.valorConAporte, // valorConAporte
       labels: 'object',
+      created: currentDate,
+      updated: currentDate,
     };
   } catch (error) {
     loggin.error(error);
@@ -64,7 +69,73 @@ const formatDB = (dataShd: any, query: any): object => {
   }
 };
 
+const formatQuery = (query: any): any => {
+  return {
+    data: {
+      vendor: query.vendor ? query.vendor : null,
+      invoice: query.invoice ? query.invoice : null,
+      subscription: query.subscription ? query.subscription : null,
+      nature: query.nature ? query.nature : null,
+      processor: query.processor ? query.processor : null,
+      branch: query.branch ? query.branch : null,
+      environment: query.environment ? query.environment : null,
+      value: query.value ? query.value : null,
+      txId: query.txId ? query.txId : null,
+      sourceDate: query.sourceDate ? query.sourceDate : null,
+      language: query.language ? query.language : null,
+      reference: query.reference ? query.reference : null,
+      resId: query.resId ? query.resId : null,
+      responseType: query.responseType ? query.responseType : null,
+      description: query.description ? query.description : null,
+      expirationDate: query.expirationDate ? query.expirationDate : null,
+      invoiceStatus: query.invoiceStatus ? query.invoiceStatus : null,
+      value2: query.value2 ? query.value2 : null,
+      labels: query.labels ? query.labels : null,
+      created: query.created ? query.created : null,
+      updated: query.updated ? query.updated : null,
+    },
+    filters: {
+      select: query.select ? query.select : null,
+      page: query.page ? query.page : null,
+      groupBy: query.groupBy ? query.groupBy : null,
+      pageSize: query.pageSize ? query.pageSize : null,
+    },
+  };
+};
+
+const formatPayment = (req: any) => {
+  return {
+    expiration: 12653412,
+    deliveryMode: 2,
+    headers: {
+      JMSMessageID: 1324,
+      JMSPriority: 'Normal',
+      JMSTimeStamp: 231231,
+      JMSCorrelationID: 1264,
+    },
+    payload: {
+      Cabecera: {
+        idTransaccion: req.labels.tx_id,
+        codigoCanal: req.labels.nature,
+        codigoSucursal: req.labels.branch,
+        codigoBanco: req.labels.processor,
+        entorno: req.labels.environment,
+        fchPeticion: req.labels.sourceDate,
+        idioma: req.labels.language,
+      },
+      CriterioDoc: {
+        nroRefRecaudo: req.labels.invoice,
+        refAdicional: req.labels.reference,
+        valorRecaudar: req.labels.value,
+        codigoEAN: req.labels.subscription,
+      },
+    },
+  };
+};
+
 export = {
   formatShd,
   formatDB,
+  formatQuery,
+  formatPayment,
 };

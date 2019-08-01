@@ -1,15 +1,18 @@
 // import { parseQueryData } from '../utils';
 import loggin = require('../../../../logger');
 import Query from '../entity/query';
+import queryBuilder from './helpers/queryBuilder';
 
 const readQuery = async (connection: any, queryData: object) => {
   try {
-    const queryRepository = connection.getRepository(Query);
-    const savedQueries = await queryRepository.find();
-    return savedQueries;
+    const buildedQuery: any = connection
+      .getRepository(Query)
+      .createQueryBuilder('entity');
+    const filteredData = await queryBuilder.builder(queryData, buildedQuery);
+    return filteredData;
   } catch (error) {
     loggin.error(error);
-    return error;
+    return { error };
   }
 };
 

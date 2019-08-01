@@ -7,7 +7,7 @@ export default class Query {
   @Column()
   public vendor: string;
   @Column()
-  public invoice: string;
+  public invoice: number;
   @Column()
   public subscription: string;
   @Column()
@@ -19,7 +19,7 @@ export default class Query {
   @Column()
   public environment: string;
   @Column({ nullable: true })
-  public value: string;
+  public value: number;
   @Column()
   public txId: string;
   @Column()
@@ -39,7 +39,11 @@ export default class Query {
   @Column()
   public invoiceStatus: string;
   @Column({ nullable: true })
-  public value2: string;
+  public value2: number;
   @Column()
   public labels: string; // check how we can store like a object param
+  @Column()
+  public created: Date;
+  @Column()
+  public updated: Date;
 }
